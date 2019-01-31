@@ -7,6 +7,7 @@ const devMode = NODE_ENV !== 'production'
 const utils = require('./utils.js')
 const { setPath, setPublicPath } = utils
 
+console.log(utils.setPath('src'))
 module.exports = {
   entry:{ 
     main: setPath('src/index.tsx')
@@ -32,8 +33,9 @@ module.exports = {
                 {
                   'plugins': [
                     '@babel/plugin-proposal-class-properties',
-                    '@babel/plugin-transform-runtime'
-                    ]
+                    '@babel/plugin-transform-runtime',
+                    ['import', {'libraryName': 'antd', 'style': true}]
+                  ]
                 }
               ]
             }
@@ -53,13 +55,15 @@ module.exports = {
               {
                 'plugins': [
                   '@babel/plugin-proposal-class-properties',
-                  '@babel/plugin-transform-runtime'
-                  ]
+                  '@babel/plugin-transform-runtime',
+                  ['import', {'libraryName': 'antd', 'style': true}]
+                ]
               }
             ]
           }
         }, 
-      }, {
+      }, 
+      {
         test: /\.s?css$/,
         // include: setPath('src'),
         use: [
@@ -77,7 +81,27 @@ module.exports = {
           },
           'sass-loader'
         ]
-      }, {
+      },
+      {
+        test: /\.less$/,
+        // include: setPath('src'),
+        use: [
+          devMode ? 'style-loader' : MiniCssExtractPlugin.loader,
+          'css-loader?minimize',
+          {
+            loader: 'postcss-loader',
+            options: {
+              plugins: [
+                require('autoprefixer')({
+                  'browsers': ['> 1%', 'last 2 versions']
+                })
+              ]
+            }
+          },
+          'less-loader'
+        ]
+      },
+      {
         test: /\.(png|jp?g|gif|svg)$/,
         use: [
           {
@@ -106,12 +130,16 @@ module.exports = {
   },
   resolve: {
     // 自动扩展文件后缀名，意味着我们require模块可以省略不写后缀名
-    extensions: ['*', '.js', '.jsx'],
+    extensions: ['.tsx', '.ts', '.jsx', '.js'],
     // 模块别名定义
     alias: {
       '@': setPath('src')
     }
   },
+  // externals: {
+  //   'react': 'React',
+  //   'react-dom': 'ReactDOM'
+  // },
   plugins: [
     new HtmlWebpackPlugin({ 
       template: setPath('src/template.html'), 
