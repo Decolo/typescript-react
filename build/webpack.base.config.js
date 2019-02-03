@@ -2,6 +2,7 @@ const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 // const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const NODE_ENV = process.env.NODE_ENV
 const devMode = NODE_ENV !== 'production'
 const utils = require('./utils.js')
@@ -19,8 +20,7 @@ module.exports = {
     chunkFilename: devMode ? '[id].js' : utils.assetsPath('js/[name].[chunkhash].min.js')
   },
   module: {
-    rules: [
-      {
+    rules: [{
         test: /\.tsx?$/,
         include: utils.setPath('src'),
         use: [
@@ -34,7 +34,7 @@ module.exports = {
                   'plugins': [
                     '@babel/plugin-proposal-class-properties',
                     '@babel/plugin-transform-runtime',
-                    ['import', {'libraryName': 'antd', 'style': true}]
+                    ['import', {'libraryName': 'antd', 'libraryDirectory': 'lib'}, 'ant']
                   ]
                 }
               ]
@@ -42,8 +42,7 @@ module.exports = {
           },
           'ts-loader'
         ]
-      },
-      {
+      }, {
         test: /\.jsx?$/,
         exclude: /node_modules/,
         use: {
@@ -56,14 +55,13 @@ module.exports = {
                 'plugins': [
                   '@babel/plugin-proposal-class-properties',
                   '@babel/plugin-transform-runtime',
-                  ['import', {'libraryName': 'antd', 'style': true}]
+                  ['import', {'libraryName': 'antd', 'libraryDirectory': 'lib'}, 'ant']
                 ]
               }
             ]
           }
         }, 
-      }, 
-      {
+      }, {
         test: /\.s?css$/,
         // include: setPath('src'),
         use: [
@@ -81,8 +79,7 @@ module.exports = {
           },
           'sass-loader'
         ]
-      },
-      {
+      }, {
         test: /\.less$/,
         // include: setPath('src'),
         use: [
@@ -97,11 +94,15 @@ module.exports = {
                 })
               ]
             }
-          },
-          'less-loader'
+          }, 
+          {
+            loader: 'less-loader',
+            options: {
+              javascriptEnabled: true,
+            }
+          }
         ]
-      },
-      {
+      }, {
         test: /\.(png|jp?g|gif|svg)$/,
         use: [
           {
@@ -125,16 +126,15 @@ module.exports = {
             }
           }
         ]
-      }
-    ]
+      }]
   },
   resolve: {
     // 自动扩展文件后缀名，意味着我们require模块可以省略不写后缀名
     extensions: ['.tsx', '.ts', '.jsx', '.js'],
-    // 模块别名定义
-    alias: {
-      '@': setPath('src')
-    }
+    // // 模块别名定义
+    // alias: {
+    //   '@': setPath('src')
+    // }
   },
   // externals: {
   //   'react': 'React',

@@ -1,16 +1,15 @@
 import * as React from 'react'
 import * as ReactDOM from 'react-dom'
 import { LocaleProvider } from 'antd'
-import { Button } from 'antd'
+import Routes from './routes/index'
 import zhCN from 'antd/lib/locale-provider/zh_CN'
+import './style/style.less'
 
 class App extends React.Component {
   render() {
     return (
       <LocaleProvider locale={zhCN}>
-        <div className="App">
-          <Button type="primary">click</Button>
-        </div>
+        <Routes />
       </LocaleProvider>
     )
   }
