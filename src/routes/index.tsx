@@ -4,9 +4,16 @@ import DynamicRoutes from './dynamicRoutes'
 
 export default class Routes extends React.Component {
 	render() {
+		// return (
+		// 	<Router basename="/dataManagement">
+		// 	  <Switch>
+		// 	    <DynamicRoutes />	
+		// 	  </Switch>
+		// 	</Router>
+		// )
 		return (
 			<Router basename="/dataManagement">
-				<DynamicRoutes />
+				<DynamicRoutes />	
 			</Router>
 		)
 	}

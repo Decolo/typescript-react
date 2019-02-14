@@ -6,7 +6,6 @@ const { Content, Sider } = Layout
 
 export default class MainLayout extends React.Component<{}, {}> {
   render() {
-    console.log(this.props)
     return (
       <div className="layout">
         <TopBar isLogin={false}/>

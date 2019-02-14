@@ -1,9 +1,12 @@
 import * as React from 'react'
+import MainLayout from '../components/mainLayout'
 
 export default class Home extends React.Component<{}, {}> {
   render() {
     return (
-      <div>home</div>
+      <MainLayout>
+        <div>home</div>
+      </MainLayout>
     )
   }
 }

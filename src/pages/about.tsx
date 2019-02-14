@@ -1,9 +1,12 @@
 import * as React from 'react'
+import MainLayout from '../components/mainLayout'
 
 export default class About extends React.Component<{}, {}> {
   render() {
     return (
-      <div>about</div>
+      <MainLayout>
+        <div>about</div>
+      </MainLayout>
     )
   }
 }

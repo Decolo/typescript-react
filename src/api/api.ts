@@ -175,10 +175,6 @@ export default {
     method: 'POST'
   },
   //采集点变更需求
-  getJob: {
-    url: '/datamanage/job/get',
-    method: 'GET'
-  },
   addJob: {
     url: '/datamanage/job/add',
     method: 'POST'
@@ -190,14 +186,6 @@ export default {
   attrcontentSystem: {
     url: '/datamanage/system/attrcontent',
     method: 'GET'
-  },
-  deleTicket: {
-    url: '/datamanage/ticket/dele',
-    method: 'POST'
-  },
-  upsertTicket: {
-    url: '/datamanage/ticket/upsert',
-    method: 'POST'
   },
   //采集点问题管理
   upsertIssue: {
