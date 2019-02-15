@@ -1,21 +1,34 @@
 import * as React from 'react'
-import { Layout } from 'antd';
+import { Layout } from 'antd'
 import SideMenu from './sideMenu'
 import TopBar from './topBar'
-const { Content, Sider } = Layout
 
-export default class MainLayout extends React.Component<{}, {}> {
-  render() {
-    return (
-      <div className="layout">
-        <TopBar isLogin={false}/>
-        <div className="main">
-          <SideMenu />
-          <div className="content">
-            {this.props.children}
-          </div>
-        </div>
-      </div>
-    )
-  }
+const { Header, Content } = Layout
+
+type Props = {
+  children: React.ReactNode
 }
+
+const MainLayout = (props: Props) => (
+  <Layout style={{ minHeight: '100vh' }}>
+    <SideMenu />
+    <Layout>
+      <Header style={{ 
+        backgroundColor: '#fff',
+        paddingLeft: 24,
+        paddingRight: 24
+      }}>
+        <TopBar isLogin={false}/>
+      </Header>
+      <Content style={{
+        margin: '24px 16px',
+        padding: 24,
+        backgroundColor: '#fff'
+      }}>
+        {props.children}
+      </Content>
+    </Layout>
+  </Layout>
+)
+
+export default MainLayout

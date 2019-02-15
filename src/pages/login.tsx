@@ -1,12 +1,22 @@
 import * as React from 'react'
 
-export default class Login extends React.Component {
-  componentDidMount() {
-    localStorage.setItem('allow', 'true')
+type Props = {
+  history: {
+    push(path: string, state?: {}): void
   }
+}
+
+export default class Login extends React.Component<Props, {}> {
+  login = () => {
+    localStorage.setItem('allow', 'true')
+    this.props.history.push('/')
+  }
+
   render() {
     return (
-      <div>login</div>
+      <div>
+        <button onClick={this.login}>Login</button>
+      </div>
     )
   }
 }
