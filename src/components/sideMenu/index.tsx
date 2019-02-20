@@ -2,6 +2,8 @@ import * as React from 'react'
 import { Layout } from 'antd'
 import { Link } from 'react-router-dom'
 import { Icon, Menu } from 'antd'
+import { menuItem } from '../../config/menu'
+const SubMenu = Menu.SubMenu;
 import './index.less'
 
 const { Sider } = Layout
@@ -10,7 +12,11 @@ type State = {
   collapsed: boolean
 }
 
-export default class SideMenu extends React.Component<{}, State> {
+type Props = {
+  menu: Array<menuItem>
+}
+
+export default class SideMenu extends React.Component<Props, State> {
   state = {
     collapsed: false
   }
@@ -24,6 +30,7 @@ export default class SideMenu extends React.Component<{}, State> {
 
   render() {
     const { collapsed } = this.state
+    const { menu } = this.props
     return (
       <Sider
         trigger={null}
@@ -40,22 +47,37 @@ export default class SideMenu extends React.Component<{}, State> {
           </div>
           <div className="menu-container">
             <Menu theme="dark" mode="inline" defaultSelectedKeys={['1']}>
-              <Menu.Item key="1">
-                <Icon type="user" />
-                <span>nav 1</span>
-              </Menu.Item>
-              <Menu.Item key="2">
-                <Icon type="video-camera" />
-                <span>nav 2</span>
-              </Menu.Item>
-              <Menu.Item key="3">
-                <Icon type="upload" />
-                <span>nav 3</span>
-              </Menu.Item>
+              {getMenu(menu)}
             </Menu>
           </div>
         </div>
       </Sider>
     )
   }
+}
+
+
+const getMenu = (menuList: Array<menuItem>) => {
+  return menuList.map((item): React.ReactElement<{}, any> => {
+    const { children, key, icon, title, path = '' } = item
+    return (
+      children && children.length > 0 ? (
+        <SubMenu key={key} title={
+          <span>
+            {icon && <Icon type={icon} />}
+            <span>{title}</span>
+          </span>
+        }>
+          {getMenu(children)}
+        </SubMenu>
+      ) : (
+        <Menu.Item key={key}>
+          {icon && <Icon type={icon} />}
+          <Link to={path}>
+            <span>{title}</span>
+          </Link>
+        </Menu.Item>
+      )
+    )
+  })
 }
