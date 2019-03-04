@@ -1,11 +1,10 @@
 import * as React from 'react'
-import RootContainer from './containers'
+import { Table } from 'antd'
+
 export default class Index extends React.Component<{}, {}> {
   render() {
     return (
-      <div className="user-info">
-        <RootContainer />
-      </div>
+      <Table />
     )
   }
 }

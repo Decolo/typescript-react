@@ -7,7 +7,7 @@ import NotFound from '../pages/404'
 
 type Config = {
   path: string,
-  component: React.ComponentClass<{}, {}>
+  component: React.ComponentClass<any, any>
 }
 
 const routes: Array<Config> = [

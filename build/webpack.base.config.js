@@ -8,7 +8,6 @@ const devMode = NODE_ENV !== 'production'
 const utils = require('./utils.js')
 const { setPath, setPublicPath } = utils
 
-console.log(utils.setPath('src'))
 module.exports = {
   entry:{ 
     main: setPath('src/index.tsx')

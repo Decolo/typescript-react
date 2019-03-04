@@ -29,13 +29,13 @@ interface Params {
   params?: {}
 }
 
-interface Data {
+export type Data = {
   code: number,
   msg: string,
-  data: {}
+  data: any
 }
 
-const fetch:Fetch = (options) => {
+const fetch:Fetch = options => {
   const token = localStorage.getItem('token') || ''
   const account = localStorage.getItem('account') || ''
   const timestamp = localStorage.getItem('timestamp') || ''
@@ -68,20 +68,19 @@ const fetch:Fetch = (options) => {
     if (!res.data) {
       return Promise.reject(false)
     }
+
     const data: Data = res.data
-    if (data.code === 1) {
-      return data
-    } else if (data.code === -6) {
+    const { code } = data
+    
+    if (code === -6) {
       // 身份过期
       localStorage.clear()
       window.location.href = '/dataManagement/login'
-    } else if (
-      data.code === -9
-      || data.code === -1
-      || data.code === -2
-      || data.code === 0
-    ) {
-      return res.data
+      return false
+    } else if (code === -9 || code === -1 || code === -2 || code === 0) {
+      return data
+    } else if (data.code === 1) {
+      return data.data
     } else {
       return Promise.reject(res)
     }

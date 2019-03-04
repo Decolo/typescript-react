@@ -12,12 +12,8 @@ const config = {
     inline: true,
     hot: true,
     proxy: {
-      '/content': {
-        target: 'https://www.medicalsee.com',
-        changeOrigin: true
-      },
-      '/member': {
-        target: 'https://www.medicalsee.com',
+      '/datamanage': {
+        target: 'http://10.100.64.64:8888',
         changeOrigin: true
       }
     }
