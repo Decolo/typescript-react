@@ -1,11 +1,12 @@
 import * as React from 'react'
 import md5 from 'md5'
+import sha256 from 'sha256'
 import { Dispatch } from 'redux'
 import { connect } from 'react-redux'
 import { Card, Form, Icon, Input, Button, Row, Col, message } from 'antd'
 import { FormComponentProps } from 'antd/lib/form/Form'
-import sha256 from 'sha256'
 import { api, fetch } from '../api/'
+import { Data } from '../api/fetch'
 
 interface Props extends FormComponentProps {
   history: {
@@ -20,13 +21,14 @@ type State = {
 }
 
 class Login extends React.Component<Props, State> {
+  private clock: number = 0
   state = {
     index: 0,
     captchaUrl: '/datamanage/system/login/captcha?0',
   }
 
   componentDidMount() {
-    setInterval(() => {
+    this.clock = window.setInterval(() => {
       this.changeCaptcha()
     }, 60 * 1000)
   }
@@ -48,30 +50,27 @@ class Login extends React.Component<Props, State> {
             captcha: values.captcha
           })
         },
-        ...api.login
+        ...api.login, 
+        handleError: (error: Data) => {
+          localStorage.clear()
+          resetFields()
+          this.changeCaptcha()
+        }
       }
-
       fetch(params)
         .then((json: any) => {
-          const { msg, data, code } = json
-          if (code !== 1) {
-            message.error(msg)
-            this.changeCaptcha()
-            resetFields()
-          } else {
-            const { account, allow, token } = data
-            const timestamp = Date.now().toString()
-            localStorage.setItem('account', account)
-            localStorage.setItem('allow', allow)
-            localStorage.setItem('timestamp', timestamp)
-            const string = '' + token + timestamp + account + '53cR29cMA2H*IrEKI'
-            localStorage.setItem('token', sha256(string))
-            localStorage.setItem('isLogin', 'true')
-            // goto '/index'
-            setTimeout(() => {
-              this.props.history.push('/index')
-            }, 400)
-          }
+          const { account, allow, token } = json
+          const timestamp = Date.now().toString()
+          localStorage.setItem('account', account)
+          localStorage.setItem('allow', allow)
+          localStorage.setItem('timestamp', timestamp)
+          const string = '' + token + timestamp + account + '53cR29cMA2H*IrEKI'
+          localStorage.setItem('token', sha256(string))
+          localStorage.setItem('isLogin', 'true')
+          // goto '/index'
+          setTimeout(() => {
+            this.props.history.push('/index')
+          }, 400)
         })
     })
   }
@@ -162,6 +161,10 @@ class Login extends React.Component<Props, State> {
         </div>
       </div>
     )
+  }
+
+  componentWillUnmount() {
+    window.clearInterval(this.clock)
   }
 }
 
