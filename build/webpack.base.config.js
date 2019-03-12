@@ -2,7 +2,7 @@ const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 // const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
+// const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const NODE_ENV = process.env.NODE_ENV
 const devMode = NODE_ENV !== 'production'
 const utils = require('./utils.js')
@@ -147,10 +147,10 @@ module.exports = {
     new MiniCssExtractPlugin({
       // Options similar to the same options in webpackOptions.output
       // both options are optional
-      filename: devMode ? utils.assetsPath('static/css/[name].[hash].css')
-        : 'static/css/[name].css',
-      chunkFilename: devMode ? utils.assetsPath('static/css/[id].[hash].css')
-        : 'static/css/[id].css',
+      filename: devMode ? utils.assetsPath('css/[name].[hash].css')
+        : utils.assetsPath('css/[name].css'),
+      chunkFilename: devMode ? utils.assetsPath('css/[id].[hash].css')
+        : utils.assetsPath('css/[id].css')
     }),
     // new BundleAnalyzerPlugin()
   ]
