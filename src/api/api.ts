@@ -10,8 +10,8 @@ export default {
     url: '/datamanage/system/login/captcha',
     method: 'GET'
   },
-  // 用户信息管理
-  getUserList: {
+  // 用户
+  fetchUserList: {
     url: '/datamanage/user/get',
     method: 'GET'
   },

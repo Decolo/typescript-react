@@ -15,6 +15,10 @@ const config = {
       '/datamanage': {
         target: 'http://10.100.64.64:8888',
         changeOrigin: true
+      },
+      '/mock': {
+        target: 'http://127.0.0.1:3000',
+        changeOrigin: true
       }
     }
   },

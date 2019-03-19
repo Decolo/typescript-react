@@ -1,9 +1,7 @@
 import * as React from 'react'
 import md5 from 'md5'
 import sha256 from 'sha256'
-import { Dispatch } from 'redux'
-import { connect } from 'react-redux'
-import { Card, Form, Icon, Input, Button, Row, Col, message } from 'antd'
+import { Card, Form, Icon, Input, Button, Row, Col } from 'antd'
 import { FormComponentProps } from 'antd/lib/form/Form'
 import { api, fetch } from '../api/'
 import { Data } from '../api/fetch'
@@ -12,7 +10,6 @@ interface Props extends FormComponentProps {
   history: {
     push(path: string, state?: {}): void
   }
-  dispatch: Dispatch
 }
 
 type State = {
@@ -169,4 +166,4 @@ class Login extends React.Component<Props, State> {
 }
 
 const wrapperLogin = Form.create()(Login)
-export default connect()(wrapperLogin)
+export default wrapperLogin

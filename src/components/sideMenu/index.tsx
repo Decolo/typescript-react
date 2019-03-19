@@ -46,7 +46,7 @@ export default class SideMenu extends React.Component<Props, State> {
             />
           </div>
           <div className="menu-container">
-            <Menu theme="dark" mode="inline" defaultSelectedKeys={['1']}>
+            <Menu theme="dark" mode="inline">
               {getMenu(menu)}
             </Menu>
           </div>
