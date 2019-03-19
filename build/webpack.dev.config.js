@@ -17,7 +17,7 @@ const config = {
         changeOrigin: true
       },
       '/mock': {
-        target: 'http://127.0.0.1:3000',
+        target: 'htpp://127.0.0.1:3000',
         changeOrigin: true
       }
     }

@@ -131,9 +131,9 @@ module.exports = {
     // 自动扩展文件后缀名，意味着我们require模块可以省略不写后缀名
     extensions: ['.tsx', '.ts', '.jsx', '.js'],
     // // 模块别名定义
-    // alias: {
-    //   '@': setPath('src')
-    // }
+    alias: {
+      '@': setPath('src')
+    }
   },
   // externals: {
   //   'react': 'React',

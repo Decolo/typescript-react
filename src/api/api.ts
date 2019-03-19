@@ -1,4 +1,4 @@
-export const APIBaseUrl: string = '';
+export const APIBaseUrl: string = '/';
 export default {
   // 登录
   login: {
@@ -12,7 +12,7 @@ export default {
   },
   // 用户
   fetchUserList: {
-    url: '/datamanage/user/get',
+    url: 'mock/user/list',
     method: 'GET'
   },
   addUser: {

@@ -1,6 +1,8 @@
 import { combineReducers } from 'redux'
-import { handleActions } from 'redux-actions'
+import userInfo from '../pages/user/info/reducer'
 
-const rootReducer = combineReducers({})
+const rootReducer = combineReducers({
+  userInfo
+})
 
 export default rootReducer
