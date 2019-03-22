@@ -12,7 +12,7 @@ export default {
   },
   // 用户
   fetchUserList: {
-    url: 'mock/user/list',
+    url: '/mock/user/list',
     method: 'GET'
   },
   addUser: {
@@ -24,7 +24,7 @@ export default {
     method: 'POST'
   },
   deleteUser: {
-    url: '/datamanage/user/dele',
+    url: '/mock/user/dele',
     method: 'POST'
   },
   getRole: {

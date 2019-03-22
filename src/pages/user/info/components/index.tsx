@@ -11,7 +11,7 @@ export default class RootComponent extends React.Component<{}, {}> {
       <MainLayout>
         <div className="user-info-container">
           <div className="row bar">
-            <UpdateModal />
+            <UpdateModal/>
             <SearchBox/>
           </div>
           <div className="row main">

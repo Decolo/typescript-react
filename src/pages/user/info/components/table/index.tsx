@@ -1,6 +1,8 @@
 import * as React from 'react'
-import { Table, Switch } from 'antd'
+import { connect } from 'react-redux'
+import { Table, Switch, Modal } from 'antd'
 import { configList, configItem } from '../../configs'
+import { doToggleUserInfoUpdateMd, doRequestDeleteUser, doToggleUserInfoDeleteMd } from '../../../../../action'
 interface Column{
   title: string,
   dataIndex: string,
@@ -8,31 +10,40 @@ interface Column{
 }
 
 const getColumns = (list: Array<configItem> = []): Array<Column> => {
-  const newList: Array<Column> = []
+  const columns: Array<Column> = []
   for (let i = 0; i < list.length; i++) {
     const { isTableColumn, title, dataIndex, key } = list[i]
     if (!isTableColumn) {
       continue
     } else {
-      newList.push({
+      columns.push({
         title,
         dataIndex,
         key
       })
     }
   }
-  return newList
+  return columns
 }
 
-export default class Index extends React.Component<{}, {}> {
-  state = {
-    loading: false
-  }
+class Index extends React.Component<any, any> {
   handleSwitchChange() {}
   handleSetAuth() {}
-  handleEdit() {}
-  handleDelete() {}
+  startEdit(record: {}) {
+    this.props.dispatch(doToggleUserInfoUpdateMd(record))
+  }
+  startDelete(id: number) {
+    this.props.dispatch(doToggleUserInfoDeleteMd(id))
+  }
+  handleDeleteOk() {
+    const { dispatch , deleteId } = this.props
+    dispatch(doRequestDeleteUser(deleteId))
+  }
+  handleDeleteCancel() {
+
+  }
   render() {
+    const { isLoading, userList, pagination, deleteMdVisible, deleteCfLoading } = this.props
     const columns: Array<any>= [...getColumns(configList), 
       {
         title: '是否启用',
@@ -43,23 +54,53 @@ export default class Index extends React.Component<{}, {}> {
         title: '操作',
         dataIndex: 'action',
         key: 'action',
-        render: () => (
+        render: (text: string, record: {
+          uid: number
+        }) => (
           <ul className="action-container">
-            <li><a href="javascript: void(0)" onClick={this.handleSetAuth}>权限设置</a></li>
-            <li><a href="javascript: void(0)" onClick={this.handleEdit}>编辑</a></li>
-            <li><a href="javascript: void(0)" onClick={this.handleDelete}>删除</a></li>
+            <li><a className="action" href="javascript: void(0)" onClick={this.handleSetAuth}>权限设置</a></li>
+            <li><a className="action" href="javascript: void(0)" onClick={() => this.startEdit(record)}>编辑</a></li>
+            <li><a className="action" href="javascript: void(0)" onClick={() => this.startDelete(record.uid)}>删除</a></li>
           </ul>
         )
       }
     ]
-    const { loading } = this.state
     return (
-      <Table
-        rowKey="userInfo"
-        bordered={true}
-        loading={loading}
-        columns={columns}
-      />
+      <div className="table-container">
+         <Modal
+          title="提示"
+          okText="确认"
+          cancelText="取消"
+          confirmLoading={deleteCfLoading}
+          visible={deleteMdVisible}
+          onOk={this.handleDeleteOk}
+          onCancel={this.handleDeleteCancel}
+        >
+          <p>确认删除该用户吗?</p>
+        </Modal>
+        <Table
+          rowKey="uid"
+          columns={columns}
+          bordered={true}
+          loading={isLoading}
+          pagination={pagination}
+          dataSource={userList}
+        />
+      </div>
     )
   }
 }
+
+const mapStateToProps = (state: any) => {
+  const { userList, pagination, isLoading, deleteMdVisible, deleteCfLoading, deleteId } = state.userInfo
+  return {
+    userList,
+    pagination,
+    isLoading,
+    deleteMdVisible,
+    deleteCfLoading,
+    deleteId
+  }
+}
+
+export default connect(mapStateToProps)(Index)

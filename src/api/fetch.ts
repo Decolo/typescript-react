@@ -29,7 +29,8 @@ interface Params {
 export interface Data  {
   code: number,
   msg: string,
-  data?: any
+  data?: any,
+  result?: any
 }
 
 const fetch:Fetch = options => {
@@ -67,7 +68,7 @@ const fetch:Fetch = options => {
       const data: Data = res.data  
       const { code } = data
       if (code === 1 || code === 200) {
-        return data.data
+        return data.data || data
       } else if (code === -6) {
         setTimeout(() => {
           window.location.assign('/dataManagement/login')

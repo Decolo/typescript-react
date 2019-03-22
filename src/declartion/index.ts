@@ -5,5 +5,5 @@ export interface ContainerProps {
 
 export interface Action {
   type: string,
-  payload: any | undefined
+  payload?: any 
 }

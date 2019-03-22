@@ -11,7 +11,10 @@ type Props = {
 }
 
 const MainLayout = (props: Props) => (
-  <Layout style={{ minHeight: '100vh' }}>
+  <Layout style={{ 
+    minHeight: '100vh',
+    overflow: 'auto'
+  }}>
     <SideMenu menu={menu} />
     <Layout>
       <Header style={{ 
@@ -24,7 +27,9 @@ const MainLayout = (props: Props) => (
       <Content style={{
         margin: '24px 16px',
         padding: 24,
-        backgroundColor: '#fff'
+        backgroundColor: '#fff',
+        minWidth: '1000px',
+        overflow: 'auto'
       }}>
         {props.children}
       </Content>
