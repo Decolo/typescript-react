@@ -21,7 +21,7 @@ module.exports = {
   module: {
     rules: [{
         test: /\.tsx?$/,
-        include: utils.setPath('src'),
+        include: setPath('src'),
         use: [
           {
             loader: 'babel-loader',
@@ -129,7 +129,7 @@ module.exports = {
   },
   resolve: {
     // 自动扩展文件后缀名，意味着我们require模块可以省略不写后缀名
-    extensions: ['.tsx', '.ts', '.jsx', '.js'],
+    extensions: ['.ts', '.tsx', '.js', '.jsx'],
     // // 模块别名定义
     alias: {
       '@': setPath('src')

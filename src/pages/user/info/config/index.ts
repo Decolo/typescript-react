@@ -1,11 +1,4 @@
-export interface configItem {
-  title: string,
-  dataIndex: string,
-  key: string,
-  isTableColumn: boolean,
-  isSearchOption: boolean,
-  formRules?: Array<any>
-}
+import { configItem } from '../../../../declartion'
 
 export const configList: Array<configItem> = [{
   title: '用户名',

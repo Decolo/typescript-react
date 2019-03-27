@@ -1,12 +1,12 @@
 import * as React from 'react'
-import MainLayout from '../../../../components/mainLayout'
+import Container from './containers'
 
 export default class CollectionDemandList extends React.Component<{}, {}> {
   render() {
     return (
-      <MainLayout>
-        CollectionDemandList
-      </MainLayout>
+      <div className="demand-list-container">
+        <Container />
+      </div>
     )
   }
 }

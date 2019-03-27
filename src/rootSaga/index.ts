@@ -1,6 +1,11 @@
 import { all } from 'redux-saga/effects';
-import { watchFetchUserInfo, watchDeleteUser } from '../pages/user/info/saga'
+import { watchAddUser, watchFetchUserInfo, watchDeleteUser, watchEditUser } from '../pages/user/info/saga'
 
 export default function* rootSaga() {
-  yield all([watchFetchUserInfo(), watchDeleteUser()])
+  yield all([
+    watchAddUser(),
+    watchDeleteUser(), 
+    watchEditUser(),
+    watchFetchUserInfo()
+  ])
 }

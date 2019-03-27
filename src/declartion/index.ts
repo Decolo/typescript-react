@@ -7,3 +7,17 @@ export interface Action {
   type: string,
   payload?: any 
 }
+
+export interface configItem {
+  title: string,
+  dataIndex: string,
+  key: string,
+  isTableColumn: boolean,
+  isSearchOption: boolean,
+  formRules?: Array<any>
+}
+
+export interface tabItem {
+  title: string,
+  key: string
+}

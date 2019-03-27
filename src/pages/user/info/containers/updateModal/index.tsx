@@ -1,22 +1,32 @@
 import * as React from 'react'
 import { connect } from 'react-redux'
 import { Modal, Button, Form, Input } from 'antd'
-import { configList } from '../../configs'
-import { doToggleUserInfoUpdateMd } from '../../../../../action'
+import { configList } from '../../config'
+import { 
+  doToggleUserInfoUpdateMd,
+  doRequestEditUser
+} from '../../../../../action'
 class UpdateModal extends React.Component<any, {}> {
   showModal = () => {
     this.props.dispatch(doToggleUserInfoUpdateMd({}))
-  }
-
-  handleOk = () => {
   }
 
   handleCancel = () => {
     this.props.dispatch(doToggleUserInfoUpdateMd({}))
   }
   
-  handleSubmit = () => { 
-    
+  handleSubmit = () => {
+    const { validateFields } = this.props.form     
+    validateFields({
+      first: true,
+      force: true
+    }, async(errors: {}, values: {}) => {
+      if (errors) {
+        return 
+      } else {
+        this.props.dispatch(doRequestEditUser(values))
+      }
+    })
   }
 
   render() {
@@ -48,10 +58,11 @@ class UpdateModal extends React.Component<any, {}> {
         <Modal
           title=''
           visible={updateMdVisible}
-          onOk={this.handleOk}
+          onOk={this.handleSubmit}
           onCancel={this.handleCancel}
+          destroyOnClose={true}
         >
-          <Form {...formItemLayout} onSubmit={this.handleSubmit}>
+          <Form {...formItemLayout}>
             {
               formConfigs.map(config => {
                 const { title, key, formRules, initialValue } = config

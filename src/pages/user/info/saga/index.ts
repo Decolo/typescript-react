@@ -4,7 +4,13 @@ import {
   REQUEST_USER_INFO,
   doReceiveUserInfo,
   REQUEST_DELETE_USER,
-  doFinishDeleteUser
+  doFinishDeleteUser,
+  doToggleUserInfoDeleteMd,
+  REQUEST_EDIT_USER,
+  doFinishEditUser,
+  doToggleUserInfoUpdateMd,
+  REQUEST_ADD_USER,
+  doFinishAddUser
 } from '../../../../action'
 import { fetch, api } from '../../../../api'
 
@@ -15,9 +21,7 @@ function* fetchUserInfoAsync(action: Action) {
       info: JSON.stringify(action.payload)
     }
   }
-
   const res = yield call(fetch, params)
-  
   const { code, msg, ...data } = res
   yield put(doReceiveUserInfo(data))
 }
@@ -34,6 +38,31 @@ function* deleteUserAsync(action: Action) {
   }
   yield call(fetch, params)
   yield put(doFinishDeleteUser())
+  yield put(doToggleUserInfoDeleteMd(null))
+}
+
+function* editUserAsync(action: Action) {
+  const params = {
+    ...api['editUser'],
+    data: {
+      info: JSON.stringify(action.payload)
+    }
+  }
+  yield call(fetch, params)
+  yield put(doFinishEditUser())
+  yield put(doToggleUserInfoUpdateMd({}))
+}
+
+function* addUserAsync(action: Action) {
+  const params = {
+    ...api['addUser'],
+    data: {
+      info: JSON.stringify(action.payload)
+    }
+  }
+  yield call(fetch, params)
+  yield put(doFinishEditUser())
+  yield put(doToggleUserInfoUpdateMd({}))
 }
 
 export function* watchFetchUserInfo() {
@@ -42,4 +71,12 @@ export function* watchFetchUserInfo() {
 
 export function* watchDeleteUser() {
   yield takeLatest(REQUEST_DELETE_USER, deleteUserAsync)
+}
+
+export function* watchAddUser() {
+  yield takeLatest(REQUEST_ADD_USER, addUserAsync)
+}
+
+export function* watchEditUser() {
+  yield takeLatest(REQUEST_EDIT_USER, editUserAsync)
 }

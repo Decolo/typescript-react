@@ -16,11 +16,11 @@ export default {
     method: 'GET'
   },
   addUser: {
-    url: '/datamanage/user/add',
+    url: '/mock/user/add',
     method: 'POST'
   },
-  updateUser: {
-    url: '/datamanage/user/update',
+  editUser: {
+    url: '/mock/user/edit',
     method: 'POST'
   },
   deleteUser: {

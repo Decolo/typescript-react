@@ -1,7 +1,8 @@
 import * as React from 'react'
 import { connect } from 'react-redux'
 import { Table, Switch, Modal } from 'antd'
-import { configList, configItem } from '../../configs'
+import { configList } from '../../config'
+import { configItem } from '../../../../../declartion'
 import { doToggleUserInfoUpdateMd, doRequestDeleteUser, doToggleUserInfoDeleteMd } from '../../../../../action'
 interface Column{
   title: string,
@@ -29,18 +30,18 @@ const getColumns = (list: Array<configItem> = []): Array<Column> => {
 class Index extends React.Component<any, any> {
   handleSwitchChange() {}
   handleSetAuth() {}
-  startEdit(record: {}) {
+  startEdit= (record: {}) => {
     this.props.dispatch(doToggleUserInfoUpdateMd(record))
   }
-  startDelete(id: number) {
+  startDelete = (id: number) => {
     this.props.dispatch(doToggleUserInfoDeleteMd(id))
   }
-  handleDeleteOk() {
+  handleDeleteOk = () => {
     const { dispatch , deleteId } = this.props
     dispatch(doRequestDeleteUser(deleteId))
   }
-  handleDeleteCancel() {
-
+  handleDeleteCancel = () => {
+    this.props.dispatch(doToggleUserInfoDeleteMd(null))
   }
   render() {
     const { isLoading, userList, pagination, deleteMdVisible, deleteCfLoading } = this.props

@@ -1,13 +1,20 @@
 import * as React from 'react'
 import { Input, Select } from 'antd'
-import { configList } from '../../configs'
+import './index.less'
 
 const Search = Input.Search
 const Option = Select.Option
-const options = configList.filter(config => config.isSearchOption)
 
-export default class SearchBox extends React.Component<{}, {}> {
+interface Props {
+  options: Array<{
+    readonly key: string,
+    readonly title: string
+  }>  
+}
+
+export default class SearchBox extends React.Component<Props, {}> {
   render() {
+    const { options } = this.props
     return (
       <div className="search-box">
         <Select defaultValue={options[0].key}>
