@@ -1,8 +1,11 @@
 import { createAction } from 'redux-actions'
-import { Action } from '../declartion'
+import { Action } from 'declaration/index'
 
-const REQUEST_TICKET = 'REQUEST_TICKET'
-const doRequestTicket = createAction(REQUEST_TICKET)
+const REQUEST_DEMAND_LIST = 'REQUEST_DEMAND_LIST'
+const doRequestDemandList = createAction(REQUEST_DEMAND_LIST)
+
+const RECEIVE_DEMAND_LIST = 'RECEIVE_DEMAND_LIST'
+const doReceiveDemandList = createAction(RECEIVE_DEMAND_LIST)
 
 const REQUEST_USER_INFO = 'REQUEST_USER_INFO'
 const doRequestUserInfo = createAction(REQUEST_USER_INFO)
@@ -35,8 +38,10 @@ const TOGGLE_USER_INFO_DELETE_MD = 'TOGGLE_USER_INFO_DELETE_MD'
 const doToggleUserInfoDeleteMd: (id: number | null) => Action = createAction(TOGGLE_USER_INFO_DELETE_MD)
 
 export {
-  REQUEST_TICKET,
-  doRequestTicket,
+  REQUEST_DEMAND_LIST,
+  doRequestDemandList,
+  RECEIVE_DEMAND_LIST,
+  doReceiveDemandList,
   REQUEST_USER_INFO,
   doRequestUserInfo,
   RECEIVE_USER_INFO,

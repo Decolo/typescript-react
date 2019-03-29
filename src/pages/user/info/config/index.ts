@@ -1,4 +1,4 @@
-import { configItem } from '../../../../declartion'
+import { configItem } from '../../../../declaration'
 
 export const configList: Array<configItem> = [{
   title: '用户名',

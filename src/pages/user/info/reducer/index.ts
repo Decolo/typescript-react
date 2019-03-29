@@ -8,8 +8,8 @@ import {
   FINISH_DELETE_USER,
   REQUEST_EDIT_USER,
   FINISH_EDIT_USER
-} from '../../../../action'
-import { Action } from '../../../../declartion'
+} from 'action/index'
+import { Action } from 'declaration/index'
 
 const userInfo = handleActions({
   [REQUEST_USER_INFO]: (state: any) => {

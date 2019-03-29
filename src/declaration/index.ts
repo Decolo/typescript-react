@@ -1,4 +1,5 @@
 import { Action } from 'redux'
+
 export interface ContainerProps {
   dispatch: (action: Action) => void
 }
@@ -8,7 +9,7 @@ export interface Action {
   payload?: any 
 }
 
-export interface configItem {
+export interface ConfigItem {
   title: string,
   dataIndex: string,
   key: string,
@@ -17,7 +18,13 @@ export interface configItem {
   formRules?: Array<any>
 }
 
-export interface tabItem {
+export interface ColumnItem{
+  title: string,
+  dataIndex: string,
+  key: string
+}
+
+export interface TabItem {
   title: string,
   key: string
 }

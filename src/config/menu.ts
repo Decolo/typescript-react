@@ -1,4 +1,4 @@
-export type menuItem = {
+export interface menuItem {
   title: string,
   icon?: string,
   key: string,
@@ -18,11 +18,6 @@ const menu: Array<menuItem> = [{
       key: '1',
       path: '/collection/demand/list'
     }]
-    // }, {
-    //   title: '需求审核列表',
-    //   key: '2',
-    //   path: '/collection/demand/auditList'
-    // }]
   }, {
     title: '采集点打标管理',
     key: 'sub3',

@@ -1,4 +1,4 @@
-import { Action } from '../../../../declartion'
+import { Action } from 'declaration/index'
 import { put, takeLatest, call } from 'redux-saga/effects'
 import { 
   REQUEST_USER_INFO,
@@ -11,7 +11,7 @@ import {
   doToggleUserInfoUpdateMd,
   REQUEST_ADD_USER,
   doFinishAddUser
-} from '../../../../action'
+} from 'action/index'
 import { fetch, api } from '../../../../api'
 
 function* fetchUserInfoAsync(action: Action) {

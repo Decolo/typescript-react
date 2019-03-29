@@ -1,8 +1,7 @@
 import * as React from 'react'
 import { Layout } from 'antd'
-import SideMenu from './sideMenu'
-import TopBar from './topBar'
-import menu from '../config/menu'
+import SideMenu from '../sideMenu'
+import TopBar from '../topBar'
 
 const { Header, Content } = Layout
 
@@ -15,7 +14,7 @@ const MainLayout = (props: Props) => (
     minHeight: '100vh',
     overflow: 'auto'
   }}>
-    <SideMenu menu={menu} />
+    <SideMenu />
     <Layout>
       <Header style={{ 
         backgroundColor: '#fff',

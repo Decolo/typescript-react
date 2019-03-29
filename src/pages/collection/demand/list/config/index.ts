@@ -1,5 +1,5 @@
-import { configItem } from '../../../../../declartion'
-import { tabItem } from '../../../../../declartion'
+import { configItem } from 'declaration/index'
+import { tabItem } from 'declaration/index'
 
 export const configList: Array<configItem> = [{
   title: '需求ID',

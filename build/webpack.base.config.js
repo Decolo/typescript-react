@@ -132,7 +132,14 @@ module.exports = {
     extensions: ['.ts', '.tsx', '.js', '.jsx'],
     // // 模块别名定义
     alias: {
-      '@': setPath('src')
+      '@': setPath('src'),
+      'declaration': setPath('src/declaration'),
+      'components': setPath('src/components'),
+      'config': setPath('src/config'),
+      'pages': setPath('src/pages'),
+      'action': setPath('src/action'),
+      'api': setPath('src/api'),
+      'utils': setPath('src/utils')
     }
   },
   // externals: {

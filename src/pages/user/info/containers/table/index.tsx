@@ -2,30 +2,8 @@ import * as React from 'react'
 import { connect } from 'react-redux'
 import { Table, Switch, Modal } from 'antd'
 import { configList } from '../../config'
-import { configItem } from '../../../../../declartion'
 import { doToggleUserInfoUpdateMd, doRequestDeleteUser, doToggleUserInfoDeleteMd } from '../../../../../action'
-interface Column{
-  title: string,
-  dataIndex: string,
-  key: string
-}
-
-const getColumns = (list: Array<configItem> = []): Array<Column> => {
-  const columns: Array<Column> = []
-  for (let i = 0; i < list.length; i++) {
-    const { isTableColumn, title, dataIndex, key } = list[i]
-    if (!isTableColumn) {
-      continue
-    } else {
-      columns.push({
-        title,
-        dataIndex,
-        key
-      })
-    }
-  }
-  return columns
-}
+import { getColumns } from 'utils/index'
 
 class Index extends React.Component<any, any> {
   handleSwitchChange() {}
@@ -45,7 +23,7 @@ class Index extends React.Component<any, any> {
   }
   render() {
     const { isLoading, userList, pagination, deleteMdVisible, deleteCfLoading } = this.props
-    const columns: Array<any>= [...getColumns(configList), 
+    const columns: Array<any> = [...getColumns(configList), 
       {
         title: '是否启用',
         dataIndex: 'onOrOff',

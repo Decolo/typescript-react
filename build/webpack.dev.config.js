@@ -12,7 +12,7 @@ const config = {
     inline: true,
     hot: true,
     proxy: {
-      '/datamanage': {
+      '/ticket': {
         target: 'http://10.100.64.64:8888',
         changeOrigin: true
       },

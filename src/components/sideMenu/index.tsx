@@ -2,21 +2,18 @@ import * as React from 'react'
 import { Layout } from 'antd'
 import { Link } from 'react-router-dom'
 import { Icon, Menu } from 'antd'
-import { menuItem } from '../../config/menu'
-const SubMenu = Menu.SubMenu;
+import { menuItem } from 'config/menu'
+import menu from 'config/menu'
 import './index.less'
 
+const SubMenu = Menu.SubMenu
 const { Sider } = Layout
 
-type State = {
+interface State {
   collapsed: boolean
 }
 
-type Props = {
-  menu: Array<menuItem>
-}
-
-export default class SideMenu extends React.Component<Props, State> {
+export default class SideMenu extends React.Component<{}, State> {
   state = {
     collapsed: false
   }
@@ -30,7 +27,6 @@ export default class SideMenu extends React.Component<Props, State> {
 
   render() {
     const { collapsed } = this.state
-    const { menu } = this.props
     return (
       <Sider
         trigger={null}

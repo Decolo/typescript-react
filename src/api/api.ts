@@ -48,6 +48,15 @@ export default {
     url: '/datamanage/role/dele',
     method: 'POST'
   },
+  fetchDemandList: {
+    url: '/ticket/',
+    method: 'GET'
+  },
+
+
+
+
+
   // 自定义规则检查
   getRuleList: {
     url: '/datamanage/customrule/get',

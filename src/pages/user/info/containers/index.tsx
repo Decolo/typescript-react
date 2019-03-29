@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { connect } from 'react-redux'
-import { ContainerProps } from '../../../../declartion'
+import { ContainerProps } from '../../../../declaration'
 import { doRequestUserInfo } from '../../../../action'
 import { configList } from '../config'
 import MainLayout from '../../../../components/mainLayout'

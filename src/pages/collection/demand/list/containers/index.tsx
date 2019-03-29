@@ -1,23 +1,33 @@
 import * as React from 'react'
 import { Tabs, Button, Table } from 'antd'
-import { doRequestTicket } from 'src/action'
+import { doRequestDemandList } from 'action/index'
 import { connect } from 'react-redux'
-import MainLayout from '../../../../../components/mainLayout'
-import SearchBox from '../../../../../components/searchBox'
-import { ContainerProps } from '../../../../../declartion'
+import MainLayout from 'components/mainLayout'
+import SearchBox from 'components/searchBox'
+import { ContainerProps } from 'declaration/index'
 import { configList, tabList } from '../config'
-
 const TabPane = Tabs.TabPane
 
 interface Props extends ContainerProps {}
+interface Params {
+  ticket: string,
+  page: number,
+  size: number
+}
 
 class Container extends React.Component<Props, {}> {
   componentDidMount = () => {
-    this.fetchDemandData()
+    this.fetchDemandList({
+      page: 1,
+      size: 10,
+      ticket: tabList[0].key
+    })
   }
-  fetchDemandData = () => {
-    // this.props.dispatch()
+
+  fetchDemandList = (params: Params) => {
+    this.props.dispatch(doRequestDemandList(params))
   }
+  
   render() {
     const options = configList.filter(config => config.isSearchOption)
     return (
