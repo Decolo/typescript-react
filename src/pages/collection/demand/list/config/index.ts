@@ -1,7 +1,7 @@
-import { configItem } from 'declaration/index'
-import { tabItem } from 'declaration/index'
+import { ConfigItem } from 'declaration/index'
+import { TabItem } from 'declaration/index'
 
-export const configList: Array<configItem> = [{
+export const configList: Array<ConfigItem> = [{
   title: '需求ID',
   dataIndex: 'id',
   key: 'id',
@@ -33,7 +33,7 @@ export const configList: Array<configItem> = [{
   isSearchOption: false,
 }]
 
-export const tabList: Array<tabItem> = [{
+export const tabList: Array<TabItem> = [{
     title: '网站',
     key: 'website'
   }, {

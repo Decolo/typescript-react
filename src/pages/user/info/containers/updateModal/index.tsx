@@ -5,7 +5,7 @@ import { configList } from '../../config'
 import { 
   doToggleUserInfoUpdateMd,
   doRequestEditUser
-} from '../../../../../action'
+} from 'action/index'
 class UpdateModal extends React.Component<any, {}> {
   showModal = () => {
     this.props.dispatch(doToggleUserInfoUpdateMd({}))
@@ -56,7 +56,7 @@ class UpdateModal extends React.Component<any, {}> {
       <div className="update-modal">
         <Button type="primary" onClick={this.showModal}>新增</Button>
         <Modal
-          title=''
+          title='新增用户'
           visible={updateMdVisible}
           onOk={this.handleSubmit}
           onCancel={this.handleCancel}

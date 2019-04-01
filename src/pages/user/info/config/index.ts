@@ -1,6 +1,6 @@
-import { configItem } from '../../../../declaration'
+import { ConfigItem } from '../../../../declaration'
 
-export const configList: Array<configItem> = [{
+export const configList: Array<ConfigItem> = [{
   title: '用户名',
   dataIndex: 'username',
   key: 'username',

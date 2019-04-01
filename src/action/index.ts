@@ -1,11 +1,23 @@
 import { createAction } from 'redux-actions'
 import { Action } from 'declaration/index'
 
+const CHANGE_DEMAND_NETSTATION = 'CHANGE_DEMAND_NETSTATION'
+const doChangeDemandNetStation = createAction(CHANGE_DEMAND_NETSTATION)
+
 const REQUEST_DEMAND_LIST = 'REQUEST_DEMAND_LIST'
 const doRequestDemandList = createAction(REQUEST_DEMAND_LIST)
 
 const RECEIVE_DEMAND_LIST = 'RECEIVE_DEMAND_LIST'
 const doReceiveDemandList = createAction(RECEIVE_DEMAND_LIST)
+
+const RESET_DEMAND = 'RESET_DEMAND'
+const doResetDemand = createAction(RESET_DEMAND)
+
+const DELETE_DEMAND = 'DELETE_DEMAND'
+const doDeleteDemand = createAction(DELETE_DEMAND)
+
+const TOGGLE_DEMAND_UPDATE_MD = 'TOGGLE_DEMAND_UPDATE_MD'
+const doToggleDemandUpdateMd = createAction(TOGGLE_DEMAND_UPDATE_MD)
 
 const REQUEST_USER_INFO = 'REQUEST_USER_INFO'
 const doRequestUserInfo = createAction(REQUEST_USER_INFO)
@@ -38,10 +50,18 @@ const TOGGLE_USER_INFO_DELETE_MD = 'TOGGLE_USER_INFO_DELETE_MD'
 const doToggleUserInfoDeleteMd: (id: number | null) => Action = createAction(TOGGLE_USER_INFO_DELETE_MD)
 
 export {
+  CHANGE_DEMAND_NETSTATION,
+  doChangeDemandNetStation,
   REQUEST_DEMAND_LIST,
   doRequestDemandList,
   RECEIVE_DEMAND_LIST,
   doReceiveDemandList,
+  RESET_DEMAND,
+  doResetDemand,
+  DELETE_DEMAND,
+  doDeleteDemand,
+  TOGGLE_DEMAND_UPDATE_MD,
+  doToggleDemandUpdateMd,
   REQUEST_USER_INFO,
   doRequestUserInfo,
   RECEIVE_USER_INFO,

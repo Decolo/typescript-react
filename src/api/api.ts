@@ -48,10 +48,20 @@ export default {
     url: '/datamanage/role/dele',
     method: 'POST'
   },
+
   fetchDemandList: {
-    url: '/ticket/',
+    url: '/ticket/netStation',
     method: 'GET'
   },
+  setDemand: {
+    url: '/ticket/netStation/status/restart',
+    method: 'POST'
+  },
+  deleteDemand: {
+    url: '/ticket/website/dele',
+    method: 'POST'
+  },
+  
 
 
 
