@@ -13,11 +13,17 @@ const doReceiveDemandList = createAction(RECEIVE_DEMAND_LIST)
 const RESET_DEMAND = 'RESET_DEMAND'
 const doResetDemand = createAction(RESET_DEMAND)
 
+const CHANGE_OPERATOR = 'CHANGE_OPERATOR'
+const doChangeOperator = createAction(CHANGE_OPERATOR)
+
 const DELETE_DEMAND = 'DELETE_DEMAND'
 const doDeleteDemand = createAction(DELETE_DEMAND)
 
 const TOGGLE_DEMAND_UPDATE_MD = 'TOGGLE_DEMAND_UPDATE_MD'
-const doToggleDemandUpdateMd = createAction(TOGGLE_DEMAND_UPDATE_MD)
+const doToggleDemandUpdateMd: ({}) => Action = createAction(TOGGLE_DEMAND_UPDATE_MD)
+
+const TOGGLE_DEMAND_DELETE_MD = 'TOGGLE_DEMAND_DELETE_MD'
+const doToggleDemandDeleteMd: (id: number | null) => Action = createAction(TOGGLE_DEMAND_DELETE_MD)
 
 const REQUEST_USER_INFO = 'REQUEST_USER_INFO'
 const doRequestUserInfo = createAction(REQUEST_USER_INFO)
@@ -62,6 +68,11 @@ export {
   doDeleteDemand,
   TOGGLE_DEMAND_UPDATE_MD,
   doToggleDemandUpdateMd,
+  TOGGLE_DEMAND_DELETE_MD,
+  doToggleDemandDeleteMd,
+  CHANGE_OPERATOR,
+  doChangeOperator,
+  
   REQUEST_USER_INFO,
   doRequestUserInfo,
   RECEIVE_USER_INFO,

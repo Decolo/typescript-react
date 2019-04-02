@@ -15,7 +15,7 @@ const userInfo = handleActions({
   [REQUEST_USER_INFO]: (state: any) => {
     return {
       ...state,
-      isLoading: true
+      tableLoading: true
     }
   },
   [RECEIVE_USER_INFO]: (state: any, action: Action) => {
@@ -29,7 +29,7 @@ const userInfo = handleActions({
         pageSize: size,
         total
       },
-      isLoading: false
+      tableLoading: false
     } 
   },
   [TOGGLE_USER_INFO_UPDATE_MD]: (state: any, action: Action) => ({
@@ -59,8 +59,8 @@ const userInfo = handleActions({
     deleteCfLoading: false
   })
 }, {
-  updateMdVisible: false,
   updateCfLoading: false,
+  updateMdVisible: false,
   record: {},
   deleteMdVisible: false,
   deleteCfLoading: false,
@@ -71,7 +71,7 @@ const userInfo = handleActions({
     pageSize: 10,
     total: 0
   },
-  isLoading: false
+  tableLoading: false
 })
 
 export default userInfo

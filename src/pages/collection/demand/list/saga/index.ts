@@ -6,7 +6,8 @@ import {
   doReceiveDemandList, 
   RESET_DEMAND,
   doRequestDemandList,
-  DELETE_DEMAND
+  DELETE_DEMAND,
+  CHANGE_OPERATOR
 } from 'action/index'
 
 function* fetchDemandListAsync(action: Action) {
@@ -46,7 +47,7 @@ function* resetDemandAsync(action: Action) {
   }))
 }
 
-function* deleteDemand(action: Action) {
+function* deleteDemandAsync(action: Action) {
   const _params = api['deleteDemand']
   const { id, pagination, netStation } = action.payload
   _params.url = _params.url.replace('netStation', netStation)
@@ -68,6 +69,23 @@ function* deleteDemand(action: Action) {
   }))
 }
 
+function* changeOperatorAsync(action: Action) {
+  const { demandId, operatorId, netStation } = action.payload
+  const _params = api['changeOperator']
+  _params.url = _params.url.replace('netStation', netStation)
+
+  const params = {
+    ..._params,
+    data: {
+      info: JSON.stringify({
+        tid: demandId,
+        operator: operatorId
+      })
+    }
+  }
+
+  yield call(fetch, params)
+}
 
 export function* watchResetDemand() {
   yield takeLatest(RESET_DEMAND, resetDemandAsync)
@@ -78,5 +96,9 @@ export function* watchFetchDemandList() {
 }
 
 export function* watchDeleteDemand() {
-  yield takeLatest(DELETE_DEMAND, deleteDemand)
+  yield takeLatest(DELETE_DEMAND, deleteDemandAsync)
+}
+
+export function* watchChangeOperator() {
+  yield takeLatest(CHANGE_OPERATOR, changeOperatorAsync)
 }

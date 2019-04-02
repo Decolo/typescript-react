@@ -58,7 +58,11 @@ export default {
     method: 'POST'
   },
   deleteDemand: {
-    url: '/ticket/website/dele',
+    url: '/ticket/netStation/dele',
+    method: 'POST'
+  },
+  changeOperator: {
+    url: '/ticket/netStation/operator/edit',
     method: 'POST'
   },
   

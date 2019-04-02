@@ -10,7 +10,6 @@ import SearchBox from 'components/searchBox'
 import UpdateModal from './updateModal'
 import { ContainerProps } from 'declaration/index'
 import { configList, tabList } from '../config'
-import { State } from '../reducer'
 import Table from './table'
 const TabPane = Tabs.TabPane
 

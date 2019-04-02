@@ -17,7 +17,7 @@ export interface State {
   },
   updateMdVisible: boolean,
   record: {},
-  isLoading: boolean
+  tableLoading: boolean
 }
 
 interface Props extends ContainerProps {}

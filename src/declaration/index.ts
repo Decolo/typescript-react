@@ -15,13 +15,15 @@ export interface ConfigItem {
   key: string,
   isTableColumn: boolean,
   isSearchOption: boolean,
-  formRules?: Array<any>
+  formRules?: Array<any>,
+  renderColumn?: (text: string, record: any) => any
 }
 
 export interface ColumnItem{
   title: string,
   dataIndex: string,
-  key: string
+  key: string,
+  render?: (text: string, record: any) => any
 }
 
 export interface TabItem {

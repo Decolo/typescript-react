@@ -22,7 +22,7 @@ class Index extends React.Component<any, any> {
     this.props.dispatch(doToggleUserInfoDeleteMd(null))
   }
   render() {
-    const { isLoading, userList, pagination, deleteMdVisible, deleteCfLoading } = this.props
+    const { tableLoading, userList, pagination, deleteMdVisible, deleteCfLoading } = this.props
     const columns: Array<any> = [...getColumns(configList), 
       {
         title: '是否启用',
@@ -61,7 +61,7 @@ class Index extends React.Component<any, any> {
           rowKey="uid"
           columns={columns}
           bordered={true}
-          loading={isLoading}
+          loading={tableLoading}
           pagination={pagination}
           dataSource={userList}
         />
@@ -71,11 +71,11 @@ class Index extends React.Component<any, any> {
 }
 
 const mapStateToProps = (state: any) => {
-  const { userList, pagination, isLoading, deleteMdVisible, deleteCfLoading, deleteId } = state.userInfo
+  const { userList, pagination, tableLoading, deleteMdVisible, deleteCfLoading, deleteId } = state.userInfo
   return {
     userList,
     pagination,
-    isLoading,
+    tableLoading,
     deleteMdVisible,
     deleteCfLoading,
     deleteId
