@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { connect } from 'react-redux'
-import { Table, Modal, Select, Pagination } from 'antd'
+import { Table, Modal, Select } from 'antd'
 import { configList } from '../../config'
 import { getColumns } from 'utils/index'
 import { ContainerProps } from 'declaration/index'
@@ -15,8 +15,8 @@ import {
  } from 'action/index'
 
 const Option = Select.Option
-interface Props extends ContainerProps, State {}
 
+interface Props extends ContainerProps, State {}
 class Index extends React.Component<Props, {}> {
   handleReset = (id: number) => {
     const { pagination, netStation } = this.props
@@ -56,46 +56,7 @@ class Index extends React.Component<Props, {}> {
     }))
   }
   render() {
-    const { tableLoading, pagination,  deleteCfLoading, deleteMdVisible } = this.props
-    const demandList = [
-      {
-      "id": 4,
-      "title": "23141234121234",
-      "create_by": "1",
-      "operator": null,
-      "source": 1,
-      "status": 0,
-      "comment": "asfasdfwqwerqwer",
-      "create_at": "2019-03-22 08:38:10",
-      "update_at": "2019-03-22 08:38:10",
-      "create_by_m": "测试用户"
-      },
-      {
-      "id": 3,
-      "title": "23141234121234",
-      "create_by": "",
-      "operator": null,
-      "source": 1,
-      "status": 0,
-      "comment": "asfasdfwqwerqwer",
-      "create_at": "2019-03-22 08:37:21",
-      "update_at": "2019-03-22 08:37:21",
-      "create_by_m": "俞景洮"
-      },
-      {
-      "id": 1,
-      "title": "测试标题修改",
-      "create_by": "1",
-      "operator": "1",
-      "source": 1,
-      "status": 1,
-      "comment": "测试备注",
-      "create_at": "2019-03-22 08:15:31",
-      "update_at": "2019-03-22 08:25:02",
-      "create_by_m": "俞景洮",
-      "operator_m": "俞景洮"
-      }
-    ]
+    const { tableLoading, pagination,  deleteCfLoading, deleteMdVisible, demandList } = this.props
     const columns: Array<any> = [...getColumns(configList),
       {
         title: '分配人',

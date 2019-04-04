@@ -4,9 +4,7 @@ import { message } from 'antd'
 import { APIBaseUrl } from './api'
 interface Options {
   headers ? : {}
-  data: {
-    info: string
-  },
+  data?: {},
   method: string,
   url: string,
   handleError?: (data: Data) => void
@@ -18,7 +16,7 @@ interface Params {
   url: string
   headers? : {};
   baseURL: string;
-  data?: {
+  data: {
     timestamp: string;
     token: string;
     account: string;

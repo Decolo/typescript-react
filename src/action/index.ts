@@ -4,11 +4,32 @@ import { Action } from 'declaration/index'
 const CHANGE_DEMAND_NETSTATION = 'CHANGE_DEMAND_NETSTATION'
 const doChangeDemandNetStation = createAction(CHANGE_DEMAND_NETSTATION)
 
+const FETCH_NET_PROPERTIES = 'FETCH_NET_PROPERTIES'
+const dofetchNetProperties = createAction(FETCH_NET_PROPERTIES)
+
+const RECEIVE_NET_PROPERTIES = 'RECEIVE_NET_PROPERTIES'
+const doReceiveNetProperties = createAction(RECEIVE_NET_PROPERTIES)
+
+const CHANGE_ADD_STEP = 'CHANGE_ADD_STEP'
+const doChangeAddStep = createAction(CHANGE_ADD_STEP)
+
 const REQUEST_DEMAND_LIST = 'REQUEST_DEMAND_LIST'
 const doRequestDemandList = createAction(REQUEST_DEMAND_LIST)
 
 const RECEIVE_DEMAND_LIST = 'RECEIVE_DEMAND_LIST'
 const doReceiveDemandList = createAction(RECEIVE_DEMAND_LIST)
+
+const REQUEST_ADD_DEMAND = 'REQUEST_ADD_DEMAND'
+const doRequestAddDemand = createAction(REQUEST_ADD_DEMAND)
+
+const FINISH_ADD_DEMAND = 'FINISH_ADD_DEMAND'
+const doFinishAddDemand = createAction(FINISH_ADD_DEMAND)
+
+const REQUEST_ADD_NETSTATION = 'REQUEST_ADD_NETSTATION'
+const doRequestAddNetStation = createAction(REQUEST_ADD_NETSTATION)
+
+const FINISH_ADD_NETSTATION = 'FINISH_ADD_NETSTATION'
+const doFinishAddNetStation = createAction(FINISH_ADD_NETSTATION)
 
 const RESET_DEMAND = 'RESET_DEMAND'
 const doResetDemand = createAction(RESET_DEMAND)
@@ -72,6 +93,20 @@ export {
   doToggleDemandDeleteMd,
   CHANGE_OPERATOR,
   doChangeOperator,
+  REQUEST_ADD_DEMAND,
+  doRequestAddDemand,
+  FINISH_ADD_DEMAND,
+  doFinishAddDemand,
+  CHANGE_ADD_STEP,
+  doChangeAddStep,
+  FETCH_NET_PROPERTIES,
+  dofetchNetProperties,
+  RECEIVE_NET_PROPERTIES,
+  doReceiveNetProperties,
+  REQUEST_ADD_NETSTATION,
+  doRequestAddNetStation,
+  FINISH_ADD_NETSTATION,
+  doFinishAddNetStation,
   
   REQUEST_USER_INFO,
   doRequestUserInfo,

@@ -6,6 +6,7 @@ import {
   doToggleUserInfoUpdateMd,
   doRequestEditUser
 } from 'action/index'
+
 class UpdateModal extends React.Component<any, {}> {
   showModal = () => {
     this.props.dispatch(doToggleUserInfoUpdateMd({}))

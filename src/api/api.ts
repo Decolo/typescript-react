@@ -57,6 +57,10 @@ export default {
     url: '/ticket/netStation/status/restart',
     method: 'POST'
   },
+  addDemand: {
+    url: '/ticket/website/add',
+    method: 'POST'
+  },
   deleteDemand: {
     url: '/ticket/netStation/dele',
     method: 'POST'
@@ -65,10 +69,14 @@ export default {
     url: '/ticket/netStation/operator/edit',
     method: 'POST'
   },
-  
-
-
-
+  fetchNetProperties: {
+    url: '/ticket/item/netStation/property',
+    method: 'GET'
+  },
+  addNetStation: {
+    url: '/ticket/item/netStation/add',
+    method: 'POST'
+  },
 
 
   // 自定义规则检查

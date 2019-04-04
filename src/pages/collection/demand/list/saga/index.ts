@@ -7,7 +7,16 @@ import {
   RESET_DEMAND,
   doRequestDemandList,
   DELETE_DEMAND,
-  CHANGE_OPERATOR
+  CHANGE_OPERATOR,
+  REQUEST_ADD_DEMAND,
+  doFinishAddDemand,
+  doToggleDemandDeleteMd,
+  doChangeAddStep,
+  FETCH_NET_PROPERTIES,
+  dofetchNetProperties,
+  doReceiveNetProperties,
+  doFinishAddNetStation,
+  REQUEST_ADD_NETSTATION
 } from 'action/index'
 
 function* fetchDemandListAsync(action: Action) {
@@ -18,7 +27,7 @@ function* fetchDemandListAsync(action: Action) {
   const params = {
     ..._params,
     data: {
-      info: JSON.stringify(action.payload)
+      ...action.payload
     }
   }
   const json = yield call(fetch, params)
@@ -32,11 +41,7 @@ function* resetDemandAsync(action: Action) {
 
   const params = {
     ..._params,
-    data: {
-      info: JSON.stringify({
-        id
-      })
-    }
+    data: { id }
   }
 
   yield call(fetch, params)
@@ -49,19 +54,16 @@ function* resetDemandAsync(action: Action) {
 
 function* deleteDemandAsync(action: Action) {
   const _params = api['deleteDemand']
-  const { id, pagination, netStation } = action.payload
+  const { deleteId, pagination, netStation } = action.payload
   _params.url = _params.url.replace('netStation', netStation)
 
   const params = {
     ..._params,
-    data: {
-      info: JSON.stringify({
-        id
-      })
-    }
+    data: { ids: deleteId }
   }
 
   yield call(fetch, params)
+  yield put(doToggleDemandDeleteMd(null))
   yield put(doRequestDemandList({
     page: pagination.current,
     size: pagination.size,
@@ -87,6 +89,53 @@ function* changeOperatorAsync(action: Action) {
   yield call(fetch, params)
 }
 
+function* addDemandAsync(action: Action) {
+  const { netStation, addStep, ...data } = action.payload
+  const _params = api['addDemand']
+  _params.url = _params.url.replace('netStation', netStation)
+
+  const params = {
+    ..._params,
+    data: data
+  }
+  
+  const json = yield call(fetch, params)
+  // 返回新添加的需求的id
+  yield put(doFinishAddDemand(json.id))
+  yield put(doChangeAddStep(addStep + 1))
+  yield put(dofetchNetProperties(netStation))
+}
+
+function* fetchNetProperties(action: Action) {
+  const _params = api['fetchNetProperties']
+  _params.url = _params.url.replace('netStation', action.payload.netStation)
+
+  const params = _params
+  const json = yield call(fetch, params)
+  yield put(doReceiveNetProperties(json.result))
+}
+
+function* addNetStationAsync(action: Action) {
+  const { netStation, ...data } = action.payload
+  const _params = api['addNetStation']
+  _params.url = _params.url.replace('netStation', netStation)
+  
+  const params = {
+    ..._params,
+    data: data
+  }
+  const json = yield call(fetch, params)
+  yield put(doFinishAddNetStation(json.id))
+}
+
+export function* watchAddNetstation() {
+  yield takeLatest(REQUEST_ADD_NETSTATION, addNetStationAsync)
+}
+
+export function* watchfetchNetProperties() {
+  yield takeLatest(FETCH_NET_PROPERTIES, fetchNetProperties)
+}
+
 export function* watchResetDemand() {
   yield takeLatest(RESET_DEMAND, resetDemandAsync)
 }
@@ -101,4 +150,8 @@ export function* watchDeleteDemand() {
 
 export function* watchChangeOperator() {
   yield takeLatest(CHANGE_OPERATOR, changeOperatorAsync)
+}
+
+export function* watchAddDemand() {
+  yield takeLatest(REQUEST_ADD_DEMAND, addDemandAsync)
 }

@@ -4,7 +4,11 @@ import {
   RECEIVE_DEMAND_LIST,
   CHANGE_DEMAND_NETSTATION,
   TOGGLE_DEMAND_UPDATE_MD,
-  TOGGLE_DEMAND_DELETE_MD
+  TOGGLE_DEMAND_DELETE_MD,
+  REQUEST_ADD_DEMAND,
+  FINISH_ADD_DEMAND,
+  CHANGE_ADD_STEP,
+  RECEIVE_NET_PROPERTIES
 } from 'action/index'
 import { Action } from 'declaration/index'
 
@@ -19,13 +23,31 @@ export interface State {
   netStation: string,
   deleteMdVisible: boolean,
   deleteCfLoading: boolean,
-  deleteId: number | null
+  deleteId: number | null,
+  addDemandLoding?: boolean,
+  addStep?: number,
+  netProperties?: Array<any>,
+  addNetLoading?: boolean
 }
 
 const collectionDemand = handleActions({
   [REQUEST_DEMAND_LIST]: (state: any) => ({
     ...state,
     loading: true
+  }),
+  [CHANGE_ADD_STEP]: (state: any, action: Action) => {
+    return {
+      ...state,
+      addStep: action.payload
+    }
+  },
+  [REQUEST_ADD_DEMAND]: (state: any) => ({
+    ...state,
+    addDemandLoding: true
+  }),
+  [FINISH_ADD_DEMAND]: (state: any) => ({
+    ...state,
+    addDemandLoding: false
   }),
   [RECEIVE_DEMAND_LIST]: (state: any, action: Action) => {
     const { result, page, size, total } = action.payload
@@ -53,6 +75,10 @@ const collectionDemand = handleActions({
     ...state,
     deleteMdVisible: !state.deleteMdVisible,
     deleteId: action.payload
+  }),
+  [RECEIVE_NET_PROPERTIES]: (state: any, action: Action) => ({
+    ...state,
+    netProperties: action.payload
   })
 }, {
   netStation: 'website',
@@ -66,8 +92,12 @@ const collectionDemand = handleActions({
     pageSize: 10,
     total: 0
   },
+  netProperties: [],
   tableLoading: false,
-  deleteCfLoading: false
+  deleteCfLoading: false,
+  addDemandLoding: false,
+  addStep: 0,
+  addNetLoaiding: false
 })
 
 export default collectionDemand
