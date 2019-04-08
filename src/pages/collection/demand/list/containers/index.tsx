@@ -2,7 +2,9 @@ import * as React from 'react'
 import { Tabs } from 'antd'
 import { 
   doRequestDemandList,
-  doChangeDemandNetStation
+  doChangeDemandNetStation,
+  doFetchNetProperties,
+  doChannelProperties
 } from 'action/index'
 import { connect } from 'react-redux'
 import MainLayout from 'components/mainLayout'
@@ -16,34 +18,33 @@ const TabPane = Tabs.TabPane
 interface Props extends ContainerProps {
   netStation: string
 }
-interface Params {
-  netStation: string,
-  page: number,
-  size: number
-}
 
 class Container extends React.Component<Props, {}> {
   componentDidMount = () => {
     const { netStation } = this.props
-    this.fetchDemandList({
-      page: 1,
-      size: 10,
-      netStation
-    })
+    this.fetchDemandList(netStation)
+    this.fetchNetProperties(netStation)
+    this.fetchChanelProperyies(netStation)
   }
 
-  fetchDemandList = (params: Params) => {
-    this.props.dispatch(doRequestDemandList(params))
+  fetchChanelProperyies = (netStation: string) => {
+    this.props.dispatch(doChannelProperties(netStation))
+  }
+
+  fetchNetProperties = (netStation: string) => {
+    this.props.dispatch(doFetchNetProperties(netStation))
+  }
+
+  fetchDemandList = (netStation: string) => {
+    this.props.dispatch(doRequestDemandList({
+      netStation
+    }))
   }
   
   changeTab = (key: string) => {
     const { netStation } = this.props
     this.props.dispatch(doChangeDemandNetStation(key))
-    this.fetchDemandList({
-      page: 1,
-      size: 10,
-      netStation
-    })
+    this.fetchDemandList(netStation)
   }
 
   render() {

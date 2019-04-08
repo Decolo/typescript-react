@@ -5,10 +5,16 @@ const CHANGE_DEMAND_NETSTATION = 'CHANGE_DEMAND_NETSTATION'
 const doChangeDemandNetStation = createAction(CHANGE_DEMAND_NETSTATION)
 
 const FETCH_NET_PROPERTIES = 'FETCH_NET_PROPERTIES'
-const dofetchNetProperties = createAction(FETCH_NET_PROPERTIES)
+const doFetchNetProperties = createAction(FETCH_NET_PROPERTIES)
 
 const RECEIVE_NET_PROPERTIES = 'RECEIVE_NET_PROPERTIES'
 const doReceiveNetProperties = createAction(RECEIVE_NET_PROPERTIES)
+
+const FETCH_CHANNEL_PROPERTIES = 'FETCH_CHANNEL_PROPERTIES'
+const doChannelProperties = createAction(FETCH_CHANNEL_PROPERTIES)
+
+const RECEIVE_CHANNEL_PROPERTIES = 'RECEIVE_CHANNEL_PROPERTIES'
+const doReceiveChannelProperties = createAction(RECEIVE_CHANNEL_PROPERTIES)
 
 const CHANGE_ADD_STEP = 'CHANGE_ADD_STEP'
 const doChangeAddStep = createAction(CHANGE_ADD_STEP)
@@ -30,6 +36,9 @@ const doRequestAddNetStation = createAction(REQUEST_ADD_NETSTATION)
 
 const FINISH_ADD_NETSTATION = 'FINISH_ADD_NETSTATION'
 const doFinishAddNetStation = createAction(FINISH_ADD_NETSTATION)
+
+const REQUEST_ADD_CHANNEL = 'REQUEST_ADD_CHANNEL'
+const doRequestAddChannel = createAction(REQUEST_ADD_CHANNEL)
 
 const RESET_DEMAND = 'RESET_DEMAND'
 const doResetDemand = createAction(RESET_DEMAND)
@@ -100,13 +109,19 @@ export {
   CHANGE_ADD_STEP,
   doChangeAddStep,
   FETCH_NET_PROPERTIES,
-  dofetchNetProperties,
+  doFetchNetProperties,
   RECEIVE_NET_PROPERTIES,
   doReceiveNetProperties,
   REQUEST_ADD_NETSTATION,
   doRequestAddNetStation,
   FINISH_ADD_NETSTATION,
   doFinishAddNetStation,
+  RECEIVE_CHANNEL_PROPERTIES,
+  doReceiveChannelProperties,
+  FETCH_CHANNEL_PROPERTIES,
+  doChannelProperties,
+  REQUEST_ADD_CHANNEL,
+  doRequestAddChannel,
   
   REQUEST_USER_INFO,
   doRequestUserInfo,

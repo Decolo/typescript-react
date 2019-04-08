@@ -8,7 +8,8 @@ import {
   REQUEST_ADD_DEMAND,
   FINISH_ADD_DEMAND,
   CHANGE_ADD_STEP,
-  RECEIVE_NET_PROPERTIES
+  RECEIVE_NET_PROPERTIES,
+  RECEIVE_CHANNEL_PROPERTIES
 } from 'action/index'
 import { Action } from 'declaration/index'
 
@@ -27,7 +28,8 @@ export interface State {
   addDemandLoding?: boolean,
   addStep?: number,
   netProperties?: Array<any>,
-  addNetLoading?: boolean
+  addNetLoading?: boolean,
+  channelProperties?: Array<any>
 }
 
 const collectionDemand = handleActions({
@@ -79,6 +81,10 @@ const collectionDemand = handleActions({
   [RECEIVE_NET_PROPERTIES]: (state: any, action: Action) => ({
     ...state,
     netProperties: action.payload
+  }),
+  [RECEIVE_CHANNEL_PROPERTIES]: (state: any, action: Action) => ({
+    ...state,
+    channelProperties: action.payload
   })
 }, {
   netStation: 'website',
@@ -93,6 +99,7 @@ const collectionDemand = handleActions({
     total: 0
   },
   netProperties: [],
+  channelProperties: [],
   tableLoading: false,
   deleteCfLoading: false,
   addDemandLoding: false,

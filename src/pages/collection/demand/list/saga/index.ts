@@ -13,10 +13,12 @@ import {
   doToggleDemandDeleteMd,
   doChangeAddStep,
   FETCH_NET_PROPERTIES,
-  dofetchNetProperties,
   doReceiveNetProperties,
   doFinishAddNetStation,
-  REQUEST_ADD_NETSTATION
+  REQUEST_ADD_NETSTATION,
+  FETCH_CHANNEL_PROPERTIES,
+  doReceiveChannelProperties,
+  doToggleDemandUpdateMd
 } from 'action/index'
 
 function* fetchDemandListAsync(action: Action) {
@@ -32,6 +34,22 @@ function* fetchDemandListAsync(action: Action) {
   }
   const json = yield call(fetch, params)
   yield put(doReceiveDemandList(json))
+}
+
+function* fetchNetPropertiesAsync(action: Action) {
+  const _params = api['fetchNetProperties']
+  _params.url = _params.url.replace('netStation', action.payload)
+  const params = _params
+  const json = yield call(fetch, params)
+  yield put(doReceiveNetProperties(json.result))
+}
+
+function* fetchChannelPropertiesAsync(action: Action) {
+  const _params = api['fetchChannelProperties']
+  _params.url = _params.url.replace('netStation', action.payload)
+  const params = _params
+  const json = yield call(fetch, params) 
+  yield put(doReceiveChannelProperties(json.result))
 }
 
 function* resetDemandAsync(action: Action) {
@@ -100,23 +118,12 @@ function* addDemandAsync(action: Action) {
   }
   
   const json = yield call(fetch, params)
-  // 返回新添加的需求的id
   yield put(doFinishAddDemand(json.id))
   yield put(doChangeAddStep(addStep + 1))
-  yield put(dofetchNetProperties(netStation))
-}
-
-function* fetchNetProperties(action: Action) {
-  const _params = api['fetchNetProperties']
-  _params.url = _params.url.replace('netStation', action.payload.netStation)
-
-  const params = _params
-  const json = yield call(fetch, params)
-  yield put(doReceiveNetProperties(json.result))
 }
 
 function* addNetStationAsync(action: Action) {
-  const { netStation, ...data } = action.payload
+  const { netStation, addStep, ...data } = action.payload
   const _params = api['addNetStation']
   _params.url = _params.url.replace('netStation', netStation)
   
@@ -124,16 +131,42 @@ function* addNetStationAsync(action: Action) {
     ..._params,
     data: data
   }
+
   const json = yield call(fetch, params)
   yield put(doFinishAddNetStation(json.id))
+  yield put(doChangeAddStep(addStep + 1))
+}
+
+function* addChannelAsync(action: Action) {
+  const { netStation, ...data } = action.payload
+  const _params = api['addNetStation']
+  _params.url = _params.url.replace('netStation', netStation)
+  const params = {
+    ..._params,
+    data: data
+  }
+
+  yield call(fetch, params)
+  yield put(doRequestDemandList({
+    netStation
+  }))
+  yield put(doToggleDemandUpdateMd({}))
+}
+
+export function* watchFetchChannelProperties() {
+  yield takeLatest(FETCH_CHANNEL_PROPERTIES, fetchChannelPropertiesAsync)
 }
 
 export function* watchAddNetstation() {
   yield takeLatest(REQUEST_ADD_NETSTATION, addNetStationAsync)
 }
 
+export function* watchAddChannel() {
+  yield takeLatest(REQUEST_ADD_DEMAND, addChannelAsync)
+}
+
 export function* watchfetchNetProperties() {
-  yield takeLatest(FETCH_NET_PROPERTIES, fetchNetProperties)
+  yield takeLatest(FETCH_NET_PROPERTIES, fetchNetPropertiesAsync)
 }
 
 export function* watchResetDemand() {

@@ -77,6 +77,10 @@ export default {
     url: '/ticket/item/netStation/add',
     method: 'POST'
   },
+  fetchChannelProperties: {
+    url: '/ticket/item/netStation/channel/property',
+    method: 'GET'
+  },
 
 
   // 自定义规则检查

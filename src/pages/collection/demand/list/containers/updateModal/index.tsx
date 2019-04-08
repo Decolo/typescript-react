@@ -3,7 +3,9 @@ import { connect } from 'react-redux'
 import { Modal, Button, Form, Input, Select, Steps } from 'antd'
 import {
   doToggleDemandUpdateMd,
-  doRequestAddDemand
+  doRequestAddDemand,
+  doRequestAddNetStation,
+  doRequestAddChannel
 } from 'action/index'
 
 const Option = Select.Option
@@ -40,6 +42,49 @@ class UpdateModal extends React.Component<any, {}> {
   }
   addNetStation = (event: any) => {
     event.preventDefault()
+    const { dispatch, netStation, addStep, netProperties } = this.props
+    const { validateFields } = this.props.form
+    const props = netProperties.map((property: {
+      property_name: string
+    }) => property.property_name)
+
+    validateFields(props, {
+      first: true,
+      force: true
+    }, async(errors: {}, values: {}) => {
+      if (errors) {
+        return
+      } else {
+        dispatch(doRequestAddNetStation({
+          ...values,
+          netStation,
+          addStep
+        }))
+      }
+    })
+  }
+  addChannel = (event: any) => {
+    event.preventDefault()
+    const { dispatch, netStation, channelProperties } = this.props
+    const { validateFields } = this.props.form
+
+    const props = channelProperties.map((property: {
+      property_name: string
+    }) => property.property_name)
+    
+    validateFields(props, {
+      first: true,
+      force: true
+    }, async(errors: {}, values: {}) => {
+      if (errors) {
+        return
+      } else {
+        dispatch(doRequestAddChannel({
+          ...values,
+          netStation,
+        }))
+      }
+    })
   }
   showModal = () => {
     this.props.dispatch(doToggleDemandUpdateMd({}))
@@ -51,8 +96,7 @@ class UpdateModal extends React.Component<any, {}> {
     this.props.dispatch(doToggleDemandUpdateMd({}))
   }
   render() {
-    const { updateMdVisible, addDemandLoding, addStep, netProperties, addNetLoding } = this.props
-    console.log(addStep)
+    const { updateMdVisible, addDemandLoding, addStep, netProperties, addNetLoding, channelProperties } = this.props
     const { getFieldDecorator } = this.props.form
     return (
       <div className="update-modal">
@@ -118,10 +162,10 @@ class UpdateModal extends React.Component<any, {}> {
                   return (
                     <Form.Item label={property_alias} key={'netProperty' + index}>
                       {getFieldDecorator(property_name, {
-                        rules: {
+                        rules: [{
                           max: length_max,
                           message: '超过最大长度'
-                        }
+                        }]
                       })(
                         <Input placeholder={'请输入' + property_alias}/>
                       )}
@@ -133,6 +177,25 @@ class UpdateModal extends React.Component<any, {}> {
             </Form>
           </div>
           <div className="third-pane">
+            <Form onSubmit={this.addChannel}>
+              {
+                channelProperties.map((item: PropertyItem, index: number) => {
+                  const { editable, length_max, nullable, property_alias, property_name, property_type } = item
+                  return (
+                    <Form.Item label={property_alias} key={'netProperty' + index}>
+                      {getFieldDecorator(property_name, {
+                        rules: [{
+                          max: length_max,
+                          message: '超过最大长度'
+                        }]
+                      })(
+                        <Input placeholder={'请输入' + property_alias}/>
+                      )}
+                    </Form.Item>
+                  )
+                })
+              }
+            </Form>
           </div>
         </Modal>
       </div>
@@ -141,14 +204,16 @@ class UpdateModal extends React.Component<any, {}> {
 }
 
 const mapStateToProps = (state: any) => {
-  const { record, updateMdVisible, addDemandLoding, netStation, addStep, addNetLoding } = state.collectionDemand
+  const { record, updateMdVisible, addDemandLoding, netStation, addStep, addNetLoding, netProperties, channelProperties } = state.collectionDemand
   return {
     record,
     updateMdVisible,
     addDemandLoding,
     netStation,
     addStep,
-    addNetLoding
+    addNetLoding,
+    netProperties,
+    channelProperties
   }
 }
 
