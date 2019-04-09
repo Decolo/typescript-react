@@ -53,7 +53,7 @@ const TOGGLE_DEMAND_UPDATE_MD = 'TOGGLE_DEMAND_UPDATE_MD'
 const doToggleDemandUpdateMd: ({}) => Action = createAction(TOGGLE_DEMAND_UPDATE_MD)
 
 const TOGGLE_DEMAND_DELETE_MD = 'TOGGLE_DEMAND_DELETE_MD'
-const doToggleDemandDeleteMd: (id: number | null) => Action = createAction(TOGGLE_DEMAND_DELETE_MD)
+const doToggleDemandDeleteMd: (ids: Array<string| number>) => Action = createAction(TOGGLE_DEMAND_DELETE_MD)
 
 const REQUEST_USER_INFO = 'REQUEST_USER_INFO'
 const doRequestUserInfo = createAction(REQUEST_USER_INFO)

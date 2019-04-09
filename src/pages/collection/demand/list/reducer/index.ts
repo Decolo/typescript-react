@@ -22,9 +22,9 @@ export interface State {
     total: number
   },
   netStation: string,
-  deleteMdVisible: boolean,
-  deleteCfLoading: boolean,
-  deleteId: number | null,
+  deleteMdVisible?: boolean,
+  deleteCfLoading?: boolean,
+  deleteIds: Array<string | number>,
   addDemandLoding?: boolean,
   addStep?: number,
   netProperties?: Array<any>,
@@ -76,7 +76,7 @@ const collectionDemand = handleActions({
   [TOGGLE_DEMAND_DELETE_MD]: (state: any, action: Action) => ({
     ...state,
     deleteMdVisible: !state.deleteMdVisible,
-    deleteId: action.payload
+    deleteIds: action.payload
   }),
   [RECEIVE_NET_PROPERTIES]: (state: any, action: Action) => ({
     ...state,
@@ -90,7 +90,7 @@ const collectionDemand = handleActions({
   netStation: 'website',
   updateMdVisible: false,
   record: {},
-  deleteId: null,
+  deleteIds: [],
   deleteMdVisible: false,
   demandList: [],
   pagination: {

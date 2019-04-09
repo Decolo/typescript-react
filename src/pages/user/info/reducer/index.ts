@@ -48,7 +48,7 @@ const userInfo = handleActions({
   [TOGGLE_USER_INFO_DELETE_MD]: (state: any, action: Action) => ({
     ...state,
     deleteMdVisible: !state.deleteMdVisible,
-    deleteId: action.payload
+    deleteIds: action.payload
   }),
   [REQUEST_DELETE_USER]: (state: any) => ({
     ...state,
@@ -64,7 +64,7 @@ const userInfo = handleActions({
   record: {},
   deleteMdVisible: false,
   deleteCfLoading: false,
-  deleteId: null,
+  deleteIds: null,
   userList: [],
   pagination: {
     current: 1,

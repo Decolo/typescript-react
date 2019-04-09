@@ -12,7 +12,8 @@ type Props = {
 const MainLayout = (props: Props) => (
   <Layout style={{ 
     minHeight: '100vh',
-    overflow: 'auto'
+    overflow: 'auto',
+    minWidth: 1400,
   }}>
     <SideMenu />
     <Layout>
@@ -24,11 +25,9 @@ const MainLayout = (props: Props) => (
         <TopBar isLogin={false}/>
       </Header>
       <Content style={{
-        margin: '24px 16px',
+        margin: 24,
         padding: 24,
         backgroundColor: '#fff',
-        minWidth: '1000px',
-        overflow: 'auto'
       }}>
         {props.children}
       </Content>

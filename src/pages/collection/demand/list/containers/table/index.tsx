@@ -25,16 +25,7 @@ class Index extends React.Component<Props, {}> {
     }))
   }
   startDelete = (id: number) => {
-    this.props.dispatch(doToggleDemandDeleteMd(id))
-  }
-  handleDeleteOk = () => {
-    const { pagination, netStation, deleteId, dispatch } = this.props
-    dispatch(doDeleteDemand({
-      deleteId, pagination, netStation
-    }))
-  }
-  handleDeleteCancel = () => {
-    this.props.dispatch(doToggleDemandDeleteMd(null))
+    this.props.dispatch(doToggleDemandDeleteMd([id]))
   }
   startEdit = (record: {}) => {
     this.props.dispatch(doToggleDemandUpdateMd(record))
@@ -56,7 +47,7 @@ class Index extends React.Component<Props, {}> {
     }))
   }
   render() {
-    const { tableLoading, pagination,  deleteCfLoading, deleteMdVisible, demandList } = this.props
+    const { tableLoading, pagination, demandList } = this.props
     const columns: Array<any> = [...getColumns(configList),
       {
         title: '分配人',
@@ -89,21 +80,15 @@ class Index extends React.Component<Props, {}> {
         }
       }
     ]
-    
+
     return (
       <div className="table-container">
-         <Modal
-          title="提示"
-          okText="确认"
-          cancelText="取消"
-          confirmLoading={deleteCfLoading}
-          visible={deleteMdVisible}
-          onOk={this.handleDeleteOk}
-          onCancel={this.handleDeleteCancel}
-        >
-          <p>确认删除该需求吗?</p>
-        </Modal>
         <Table
+          rowSelection={{
+            onChange: (selectedRowKeys: Array<string> | Array<number>) => {  
+              console.log(selectedRowKeys.join(','))
+            }
+          }}
           rowKey="id"
           columns={columns}
           bordered={true}
@@ -120,24 +105,19 @@ class Index extends React.Component<Props, {}> {
 }
 
 const mapStateToProps = (state: any) => {
-  const { collectionDemand } = state
   const { 
     tableLoading,
     pagination,
     demandList,
     netStation,
-    deleteMdVisible,
-    deleteCfLoading,
-    deleteId
-  } = collectionDemand
+    deleteIds
+  } = state.collectionDemand
   return {
     tableLoading,
     pagination,
     demandList,
     netStation,
-    deleteMdVisible,
-    deleteCfLoading,
-    deleteId
+    deleteIds
   }
 }
 

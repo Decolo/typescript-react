@@ -1,10 +1,11 @@
 import * as React from 'react'
-import { Tabs } from 'antd'
+import { Tabs, Button } from 'antd'
 import { 
   doRequestDemandList,
   doChangeDemandNetStation,
   doFetchNetProperties,
-  doChannelProperties
+  doChannelProperties,
+  doToggleDemandDeleteMd
 } from 'action/index'
 import { connect } from 'react-redux'
 import MainLayout from 'components/mainLayout'
@@ -13,10 +14,12 @@ import UpdateModal from './updateModal'
 import { ContainerProps } from 'declaration/index'
 import { configList, tabList } from '../config'
 import Table from './table'
+import DeleteModal from './deleteModal'
 const TabPane = Tabs.TabPane
 
 interface Props extends ContainerProps {
-  netStation: string
+  netStation: string,
+  deleteIds: Array<number | string>
 }
 
 class Container extends React.Component<Props, {}> {
@@ -47,19 +50,26 @@ class Container extends React.Component<Props, {}> {
     this.fetchDemandList(netStation)
   }
 
+  startDelete = () => {
+    this.props.dispatch(doToggleDemandDeleteMd([]))
+  }
+
   render() {
-    const { netStation } = this.props
+    const { netStation, deleteIds } = this.props
     const options = configList.filter(config => config.isSearchOption)
     return (
       <MainLayout>
-        <Tabs defaultActiveKey={netStation} onChange={this.changeTab}>
+        <Tabs className="tab" defaultActiveKey={netStation} onChange={this.changeTab}>
           {
             tabList.map(tab => {
               const { title, key } = tab
               return (
                 <TabPane tab={title} key={key}>
                   <div className="row bar">
-                    <UpdateModal />
+                    <div className="button-container">
+                      <Button className="delete-some" disabled={!deleteIds.length} onClick={this.startDelete}>批量删除</Button>
+                      <UpdateModal />
+                    </div>
                     <SearchBox
                       options={options}
                     />
@@ -70,16 +80,17 @@ class Container extends React.Component<Props, {}> {
             })
           }
         </Tabs>
-        
+        <DeleteModal />
       </MainLayout>
     )
   }
 }
 
 const mapStateToProps = (state: any) => {
-  const { netStation } = state.collectionDemand
+  const { netStation, deleteIds } = state.collectionDemand
   return {
-    netStation 
+    netStation,
+    deleteIds
   }
 }
 export default connect(mapStateToProps)(Container)

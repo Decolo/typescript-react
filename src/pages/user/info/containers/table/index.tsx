@@ -15,8 +15,8 @@ class Index extends React.Component<any, any> {
     this.props.dispatch(doToggleUserInfoDeleteMd(id))
   }
   handleDeleteOk = () => {
-    const { dispatch , deleteId } = this.props
-    dispatch(doRequestDeleteUser(deleteId))
+    const { dispatch , deleteIds } = this.props
+    dispatch(doRequestDeleteUser(deleteIds))
   }
   handleDeleteCancel = () => {
     this.props.dispatch(doToggleUserInfoDeleteMd(null))
@@ -71,14 +71,14 @@ class Index extends React.Component<any, any> {
 }
 
 const mapStateToProps = (state: any) => {
-  const { userList, pagination, tableLoading, deleteMdVisible, deleteCfLoading, deleteId } = state.userInfo
+  const { userList, pagination, tableLoading, deleteMdVisible, deleteCfLoading, deleteIds } = state.userInfo
   return {
     userList,
     pagination,
     tableLoading,
     deleteMdVisible,
     deleteCfLoading,
-    deleteId
+    deleteIds
   }
 }
 

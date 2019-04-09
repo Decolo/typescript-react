@@ -72,16 +72,16 @@ function* resetDemandAsync(action: Action) {
 
 function* deleteDemandAsync(action: Action) {
   const _params = api['deleteDemand']
-  const { deleteId, pagination, netStation } = action.payload
+  const { deleteIds, pagination, netStation } = action.payload
   _params.url = _params.url.replace('netStation', netStation)
 
   const params = {
     ..._params,
-    data: { ids: deleteId }
+    data: { ids: deleteIds.join(',') }
   }
 
   yield call(fetch, params)
-  yield put(doToggleDemandDeleteMd(null))
+  yield put(doToggleDemandDeleteMd([]))
   yield put(doRequestDemandList({
     page: pagination.current,
     size: pagination.size,
