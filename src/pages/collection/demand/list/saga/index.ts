@@ -18,7 +18,8 @@ import {
   REQUEST_ADD_NETSTATION,
   FETCH_CHANNEL_PROPERTIES,
   doReceiveChannelProperties,
-  doToggleDemandUpdateMd
+  doToggleDemandUpdateMd,
+  doChangeDemandDeleteIds
 } from 'action/index'
 
 function* fetchDemandListAsync(action: Action) {
@@ -73,6 +74,7 @@ function* resetDemandAsync(action: Action) {
 function* deleteDemandAsync(action: Action) {
   const _params = api['deleteDemand']
   const { deleteIds, pagination, netStation } = action.payload
+  const { current, pageSize, total } = pagination
   _params.url = _params.url.replace('netStation', netStation)
 
   const params = {
@@ -81,10 +83,11 @@ function* deleteDemandAsync(action: Action) {
   }
 
   yield call(fetch, params)
-  yield put(doToggleDemandDeleteMd([]))
+  yield put(doToggleDemandDeleteMd())
+  yield put(doChangeDemandDeleteIds([]))
   yield put(doRequestDemandList({
-    page: pagination.current,
-    size: pagination.size,
+    page: total % pageSize === 1 ? current - 1 : current,
+    size: pageSize,
     netStation
   }))
 }
@@ -108,7 +111,7 @@ function* changeOperatorAsync(action: Action) {
 }
 
 function* addDemandAsync(action: Action) {
-  const { netStation, addStep, ...data } = action.payload
+  const { netStation, addStep, pagination, ...data } = action.payload
   const _params = api['addDemand']
   _params.url = _params.url.replace('netStation', netStation)
 
@@ -138,7 +141,8 @@ function* addNetStationAsync(action: Action) {
 }
 
 function* addChannelAsync(action: Action) {
-  const { netStation, ...data } = action.payload
+  const { netStation, pagination, ...data } = action.payload
+  const { current, pageSize, total } = pagination
   const _params = api['addNetStation']
   _params.url = _params.url.replace('netStation', netStation)
   const params = {
@@ -148,6 +152,8 @@ function* addChannelAsync(action: Action) {
 
   yield call(fetch, params)
   yield put(doRequestDemandList({
+    page: total % pageSize === 0 ? current + 1 : current,
+    size: pageSize,
     netStation
   }))
   yield put(doToggleDemandUpdateMd({}))

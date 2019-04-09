@@ -46,6 +46,9 @@ const doResetDemand = createAction(RESET_DEMAND)
 const CHANGE_OPERATOR = 'CHANGE_OPERATOR'
 const doChangeOperator = createAction(CHANGE_OPERATOR)
 
+const CHANGE_DEMAND_DELETE_IDS = 'CHANGE_DEMAND_DELETE_IDS'
+const doChangeDemandDeleteIds: (ids: Array<number | string>) => Action = createAction(CHANGE_DEMAND_DELETE_IDS)
+
 const DELETE_DEMAND = 'DELETE_DEMAND'
 const doDeleteDemand = createAction(DELETE_DEMAND)
 
@@ -53,7 +56,7 @@ const TOGGLE_DEMAND_UPDATE_MD = 'TOGGLE_DEMAND_UPDATE_MD'
 const doToggleDemandUpdateMd: ({}) => Action = createAction(TOGGLE_DEMAND_UPDATE_MD)
 
 const TOGGLE_DEMAND_DELETE_MD = 'TOGGLE_DEMAND_DELETE_MD'
-const doToggleDemandDeleteMd: (ids: Array<string| number>) => Action = createAction(TOGGLE_DEMAND_DELETE_MD)
+const doToggleDemandDeleteMd = createAction(TOGGLE_DEMAND_DELETE_MD)
 
 const REQUEST_USER_INFO = 'REQUEST_USER_INFO'
 const doRequestUserInfo = createAction(REQUEST_USER_INFO)
@@ -83,7 +86,10 @@ const TOGGLE_USER_INFO_UPDATE_MD = 'TOGGLE_USER_INFO_UPDATE_MD'
 const doToggleUserInfoUpdateMd: ({}) => Action = createAction(TOGGLE_USER_INFO_UPDATE_MD)
 
 const TOGGLE_USER_INFO_DELETE_MD = 'TOGGLE_USER_INFO_DELETE_MD'
-const doToggleUserInfoDeleteMd: (id: number | null) => Action = createAction(TOGGLE_USER_INFO_DELETE_MD)
+const doToggleUserInfoDeleteMd = createAction(TOGGLE_USER_INFO_DELETE_MD)
+
+const CHANGE_USER_DELETE_IDS = 'CHANGE_USER_DELETE_IDS'
+const doChangeUserDeleteIds: (ids: Array<number | string>) => Action = createAction(CHANGE_USER_DELETE_IDS)
 
 export {
   CHANGE_DEMAND_NETSTATION,
@@ -122,6 +128,8 @@ export {
   doChannelProperties,
   REQUEST_ADD_CHANNEL,
   doRequestAddChannel,
+  CHANGE_DEMAND_DELETE_IDS,
+  doChangeDemandDeleteIds,
   
   REQUEST_USER_INFO,
   doRequestUserInfo,
@@ -142,5 +150,7 @@ export {
   TOGGLE_USER_INFO_UPDATE_MD,
   doToggleUserInfoUpdateMd,
   TOGGLE_USER_INFO_DELETE_MD,
-  doToggleUserInfoDeleteMd
+  doToggleUserInfoDeleteMd,
+  CHANGE_USER_DELETE_IDS,
+  doChangeUserDeleteIds
 }

@@ -7,7 +7,8 @@ import {
   REQUEST_DELETE_USER,
   FINISH_DELETE_USER,
   REQUEST_EDIT_USER,
-  FINISH_EDIT_USER
+  FINISH_EDIT_USER,
+  CHANGE_USER_DELETE_IDS
 } from 'action/index'
 import { Action } from 'declaration/index'
 
@@ -45,9 +46,12 @@ const userInfo = handleActions({
     ...state,
     updateCfLoading: false
   }),
-  [TOGGLE_USER_INFO_DELETE_MD]: (state: any, action: Action) => ({
+  [TOGGLE_USER_INFO_DELETE_MD]: (state: any) => ({
     ...state,
-    deleteMdVisible: !state.deleteMdVisible,
+    deleteMdVisible: !state.deleteMdVisible
+  }),
+  [CHANGE_USER_DELETE_IDS]: (state: any, action) => ({
+    ...state,
     deleteIds: action.payload
   }),
   [REQUEST_DELETE_USER]: (state: any) => ({

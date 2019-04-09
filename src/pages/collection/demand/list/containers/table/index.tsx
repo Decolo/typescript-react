@@ -1,17 +1,17 @@
 import * as React from 'react'
 import { connect } from 'react-redux'
-import { Table, Modal, Select } from 'antd'
+import { Table, Select } from 'antd'
 import { configList } from '../../config'
 import { getColumns } from 'utils/index'
 import { ContainerProps } from 'declaration/index'
 import { State } from '../../reducer'
 import { 
   doResetDemand,
-  doDeleteDemand,
   doChangeOperator,
   doToggleDemandUpdateMd,
   doToggleDemandDeleteMd,
-  doRequestDemandList
+  doRequestDemandList,
+  doChangeDemandDeleteIds
  } from 'action/index'
 
 const Option = Select.Option
@@ -25,7 +25,9 @@ class Index extends React.Component<Props, {}> {
     }))
   }
   startDelete = (id: number) => {
-    this.props.dispatch(doToggleDemandDeleteMd([id]))
+    const { dispatch } = this.props
+    dispatch(doToggleDemandDeleteMd())
+    dispatch(doChangeDemandDeleteIds([id]))
   }
   startEdit = (record: {}) => {
     this.props.dispatch(doToggleDemandUpdateMd(record))
@@ -47,7 +49,7 @@ class Index extends React.Component<Props, {}> {
     }))
   }
   render() {
-    const { tableLoading, pagination, demandList } = this.props
+    const { tableLoading, pagination, demandList, dispatch } = this.props
     const columns: Array<any> = [...getColumns(configList),
       {
         title: '分配人',
@@ -86,7 +88,7 @@ class Index extends React.Component<Props, {}> {
         <Table
           rowSelection={{
             onChange: (selectedRowKeys: Array<string> | Array<number>) => {  
-              console.log(selectedRowKeys.join(','))
+              dispatch(doChangeDemandDeleteIds(selectedRowKeys))
             }
           }}
           rowKey="id"

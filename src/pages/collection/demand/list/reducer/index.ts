@@ -9,7 +9,8 @@ import {
   FINISH_ADD_DEMAND,
   CHANGE_ADD_STEP,
   RECEIVE_NET_PROPERTIES,
-  RECEIVE_CHANNEL_PROPERTIES
+  RECEIVE_CHANNEL_PROPERTIES,
+  CHANGE_DEMAND_DELETE_IDS
 } from 'action/index'
 import { Action } from 'declaration/index'
 
@@ -73,9 +74,12 @@ const collectionDemand = handleActions({
     updateMdVisible: !state.updateMdVisible,
     record: action.payload
   }),
-  [TOGGLE_DEMAND_DELETE_MD]: (state: any, action: Action) => ({
+  [TOGGLE_DEMAND_DELETE_MD]: (state: any) => ({
     ...state,
-    deleteMdVisible: !state.deleteMdVisible,
+    deleteMdVisible: !state.deleteMdVisible
+  }),
+  [CHANGE_DEMAND_DELETE_IDS]: (state: any, action: Action) => ({
+    ...state,
     deleteIds: action.payload
   }),
   [RECEIVE_NET_PROPERTIES]: (state: any, action: Action) => ({

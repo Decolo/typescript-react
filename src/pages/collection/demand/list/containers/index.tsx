@@ -56,6 +56,8 @@ class Container extends React.Component<Props, {}> {
 
   render() {
     const { netStation, deleteIds } = this.props
+    debugger
+    console.log(deleteIds)
     const options = configList.filter(config => config.isSearchOption)
     return (
       <MainLayout>
